@@ -1,6 +1,18 @@
-run = "cowsay Configure me!"
-entrypoint = "README.md"
+entrypoint = "index.js"run = "npm install && npm start"
+run = "npm install && npm start"
+entrypoint = "index.js"
 
 [nix]
-channel = "stable-24_05"
-packages = ["cowsay"]
+channel = "stable-24_11"
+packages = ["nodejs_20"]
+
+[agent]
+expertMode = truerun = "npm install && npm start"
+entrypoint = "index.js"
+
+[nix]
+channel = "stable-24_11"
+packages = ["nodejs"]
+
+[agent]
+expertMode = true
