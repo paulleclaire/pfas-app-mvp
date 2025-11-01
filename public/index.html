@@ -1,71 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PFAS News Aggregator</title>
-  <style>
-    body {
-      font-family: system-ui, -apple-system, sans-serif;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
-      background: #f5f5f5;
-    }
-    h1 {
-      color: #333;
-      border-bottom: 3px solid #007bff;
-      padding-bottom: 10px;
-    }
-    article {
-      background: white;
-      padding: 20px;
-      margin: 15px 0;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    article h2 {
-      margin-top: 0;
-      font-size: 1.2em;
-    }
-    article a {
-      color: #007bff;
-      text-decoration: none;
-    }
-    article a:hover {
-      text-decoration: underline;
-    }
-    time {
-      color: #666;
-      font-size: 0.9em;
-    }
-    #loading {
-      text-align: center;
-      padding: 40px;
-      color: #666;
-    }
-  </style>
-</head>
-<body>
-  <h1>PFAS News Aggregator</h1>
-  <div id="loading">Loading latest news...</div>
-  <div id="news"></div>
-  <script>
-    fetch('/api/news')
-      .then(r => r.json())
-      .then(items => {
-        document.getElementById('loading').style.display = 'none';
-        const html = items.map(item => 
-          `<article>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Water Awareness Jersey — PFAS News</title>
+    <style>
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+      h1 {
+        color: #333;
+        border-bottom: 3px solid #007bff;
+        padding-bottom: 10px;
+      }
+      article {
+        background: white;
+        padding: 20px;
+        margin: 15px 0;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      article h2 {
+        margin-top: 0;
+        font-size: 1.2em;
+      }
+      article a {
+        color: #007bff;
+        text-decoration: none;
+      }
+      article a:hover {
+        text-decoration: underline;
+      }
+      time {
+        color: #666;
+        font-size: 0.9em;
+      }
+      #loading {
+        text-align: center;
+        padding: 40px;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Water Awareness Jersey — PFAS News</h1>
+    <div id="loading">Loading latest news...</div>
+    <div id="news"></div>
+    <script>
+      fetch("/api/news")
+        .then((r) => r.json())
+        .then((items) => {
+          document.getElementById("loading").style.display = "none";
+          const html = items
+            .map(
+              (item) =>
+                `<article>
             <h2><a href="${item.link}" target="_blank">${item.title}</a></h2>
             <time>${new Date(item.pubDate).toLocaleDateString()}</time>
-          </article>`
-        ).join('');
-        document.getElementById('news').innerHTML = html;
-      })
-      .catch(err => {
-        document.getElementById('loading').innerHTML = 'Error loading news: ' + err.message;
-      });
-  </script>
-</body>
+          </article>`,
+            )
+            .join("");
+          document.getElementById("news").innerHTML = html;
+        })
+        .catch((err) => {
+          document.getElementById("loading").innerHTML =
+            "Error loading news: " + err.message;
+        });
+    </script>
+
+    <p style="margin: 0.5rem 0 1rem 0; font-size: 0.9rem">
+      Citizen-science updates for Jersey & beyond
+    </p>
+    <footer style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.75">
+      © 2025 Water Awareness Jersey · A Veritas Initiative project
+    </footer>
+  </body>
 </html>
