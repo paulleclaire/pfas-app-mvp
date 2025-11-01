@@ -13,6 +13,11 @@ const PORT = process.env.PORT || 5000;
 // serve the /public folder with absolute path
 app.use(express.static(join(__dirname, "public")));
 
+// fallback route for root
+app.get("/", (_req, res) => {
+  res.sendFile(join(__dirname, "public", "index.html"));
+});
+
 // simple health status
 app.get("/health", (req, res) => {
   res.json({ ok: true, uptime: process.uptime() });
