@@ -1,12 +1,17 @@
 // index.js — tiny Express server + RSS endpoint + health check
 import express from "express";
 import Parser from "rss-parser";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// serve the /public folder (we'll add index.html next)
-app.use(express.static("public"));
+// serve the /public folder with absolute path
+app.use(express.static(join(__dirname, "public")));
 
 // simple health status
 app.get("/health", (req, res) => {
