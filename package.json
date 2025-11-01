@@ -1,10 +1,14 @@
 {
   "name": "pfas-app-mvp",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
-  "scripts": { "start": "node index.js" },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "build": "npm ci --omit=dev || npm install --production"
+  },
   "dependencies": {
-    "express": "^4.21.0",
-    "rss-parser": "^3.13.0"
+    "express": "^4.19.2",
+    "rss-parser": "^3.12.0"
   }
 }
