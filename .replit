@@ -32,3 +32,4 @@ externalPort = 80
 [deployment]
 deploymentTarget = "autoscale"
 run = ["sh", "-c", "npm start"]
+build = ["sh", "-c", "npm ci --omit=dev || npm install --production"]
