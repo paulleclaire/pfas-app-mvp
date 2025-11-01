@@ -20,6 +20,78 @@
         border-bottom: 3px solid #007bff;
         padding-bottom: 10px;
       }
+      .ticker-wrapper {
+        background: #007bff;
+        color: white;
+        overflow: hidden;
+        position: relative;
+        height: 40px;
+        margin: 15px 0;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+      }
+      .ticker-controls {
+        position: absolute;
+        right: 10px;
+        z-index: 10;
+      }
+      .ticker-pause {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 4px 10px;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 0.85em;
+      }
+      .ticker-pause:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+      .ticker-pause:focus {
+        outline: 2px solid white;
+        outline-offset: 2px;
+      }
+      .ticker-content {
+        display: flex;
+        white-space: nowrap;
+        padding-right: 100%;
+        animation: scroll 60s linear infinite;
+      }
+      .ticker-content.paused {
+        animation-play-state: paused;
+      }
+      @keyframes scroll {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+      .ticker-item {
+        display: inline-block;
+        padding: 0 3em;
+        color: white;
+        text-decoration: none;
+        font-size: 0.95em;
+        transition: opacity 0.2s;
+      }
+      .ticker-item:hover {
+        opacity: 0.8;
+        text-decoration: underline;
+      }
+      .ticker-item::before {
+        content: "●";
+        margin-right: 1em;
+        opacity: 0.6;
+      }
+      @media (max-width: 600px) {
+        .ticker-item {
+          font-size: 0.85em;
+          padding: 0 2em;
+        }
+      }
       .tabs {
         display: flex;
         gap: 10px;
@@ -93,10 +165,31 @@
         padding: 40px;
         color: #666;
       }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
     </style>
   </head>
   <body>
     <h1>Water Awareness Jersey — PFAS News</h1>
+    
+    <div class="ticker-wrapper" role="region" aria-live="polite" aria-label="News ticker">
+      <div class="ticker-controls">
+        <button class="ticker-pause" id="tickerPause" aria-label="Pause ticker">
+          <span aria-hidden="true">❚❚</span>
+          <span class="sr-only">Pause</span>
+        </button>
+      </div>
+      <div class="ticker-content" id="tickerContent"></div>
+    </div>
     
     <div class="tabs">
       <button class="tab active" data-scope="global">Global</button>
@@ -115,6 +208,28 @@
     
     <script>
       let currentScope = "global";
+      let tickerPaused = false;
+      
+      function updateTicker(items) {
+        const tickerContent = document.getElementById("tickerContent");
+        
+        if (items.length === 0) {
+          tickerContent.innerHTML = '<span class="ticker-item">No news available</span>';
+          return;
+        }
+        
+        // Duplicate items for seamless loop
+        const tickerItems = items
+          .slice(0, 10)
+          .map((item) => {
+            const truncated = item.title.length > 80 ? item.title.substring(0, 77) + '...' : item.title;
+            return `<a href="${item.link}" target="_blank" class="ticker-item" rel="noopener noreferrer">${truncated}</a>`;
+          })
+          .join("");
+        
+        // Duplicate for seamless scrolling
+        tickerContent.innerHTML = tickerItems + tickerItems;
+      }
       
       function loadNews(scope) {
         const loading = document.getElementById("loading");
@@ -129,6 +244,9 @@
           .then((r) => r.json())
           .then((items) => {
             loading.style.display = "none";
+            
+            // Update ticker
+            updateTicker(items);
             
             if (items.length === 0) {
               news.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">No news items found for this scope.</p>';
@@ -153,6 +271,52 @@
             news.innerHTML = `<p style="text-align:center;color:#d9534f;padding:40px;">Error loading news: ${err.message}</p>`;
           });
       }
+      
+      // Ticker pause/play controls
+      const tickerContent = document.getElementById("tickerContent");
+      const tickerPauseBtn = document.getElementById("tickerPause");
+      const tickerWrapper = document.querySelector(".ticker-wrapper");
+      
+      function pauseTicker() {
+        tickerPaused = true;
+        tickerContent.classList.add("paused");
+        tickerPauseBtn.innerHTML = '<span aria-hidden="true">▶</span><span class="sr-only">Play</span>';
+        tickerPauseBtn.setAttribute("aria-label", "Play ticker");
+      }
+      
+      function playTicker() {
+        tickerPaused = false;
+        tickerContent.classList.remove("paused");
+        tickerPauseBtn.innerHTML = '<span aria-hidden="true">❚❚</span><span class="sr-only">Pause</span>';
+        tickerPauseBtn.setAttribute("aria-label", "Pause ticker");
+      }
+      
+      // Pause/play button
+      tickerPauseBtn.addEventListener("click", () => {
+        if (tickerPaused) {
+          playTicker();
+        } else {
+          pauseTicker();
+        }
+      });
+      
+      // Pause on hover
+      tickerWrapper.addEventListener("mouseenter", pauseTicker);
+      tickerWrapper.addEventListener("mouseleave", () => {
+        if (!tickerPauseBtn.matches(":focus")) {
+          playTicker();
+        }
+      });
+      
+      // Pause on touch (mobile)
+      tickerWrapper.addEventListener("touchstart", pauseTicker);
+      
+      // Resume when pause button loses focus
+      tickerPauseBtn.addEventListener("blur", () => {
+        if (!tickerWrapper.matches(":hover") && tickerPaused) {
+          playTicker();
+        }
+      });
       
       // Tab click handlers
       document.querySelectorAll(".tab").forEach((tab) => {
