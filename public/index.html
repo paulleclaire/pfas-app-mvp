@@ -20,6 +20,52 @@
         border-bottom: 3px solid #007bff;
         padding-bottom: 10px;
       }
+      .tabs {
+        display: flex;
+        gap: 10px;
+        margin: 20px 0;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 0;
+      }
+      .tab {
+        background: none;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 1em;
+        color: #666;
+        border-bottom: 3px solid transparent;
+        margin-bottom: -2px;
+        transition: all 0.2s;
+      }
+      .tab:hover {
+        color: #007bff;
+      }
+      .tab.active {
+        color: #007bff;
+        border-bottom-color: #007bff;
+        font-weight: 600;
+      }
+      .meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        font-size: 0.9em;
+        color: #666;
+      }
+      #refresh {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 6px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9em;
+      }
+      #refresh:hover {
+        background: #0056b3;
+      }
       article {
         background: white;
         padding: 20px;
@@ -51,28 +97,83 @@
   </head>
   <body>
     <h1>Water Awareness Jersey — PFAS News</h1>
+    
+    <div class="tabs">
+      <button class="tab active" data-scope="global">Global</button>
+      <button class="tab" data-scope="jersey">Jersey</button>
+      <button class="tab" data-scope="official">Official</button>
+      <button class="tab" data-scope="science">Science</button>
+    </div>
+    
+    <div class="meta">
+      <span id="updated">Updated: Loading...</span>
+      <button id="refresh">Refresh</button>
+    </div>
+    
     <div id="loading">Loading latest news...</div>
     <div id="news"></div>
+    
     <script>
-      fetch("/api/news")
-        .then((r) => r.json())
-        .then((items) => {
-          document.getElementById("loading").style.display = "none";
-          const html = items
-            .map(
-              (item) =>
-                `<article>
-            <h2><a href="${item.link}" target="_blank">${item.title}</a></h2>
-            <time>${new Date(item.pubDate).toLocaleDateString()}</time>
-          </article>`,
-            )
-            .join("");
-          document.getElementById("news").innerHTML = html;
-        })
-        .catch((err) => {
-          document.getElementById("loading").innerHTML =
-            "Error loading news: " + err.message;
+      let currentScope = "global";
+      
+      function loadNews(scope) {
+        const loading = document.getElementById("loading");
+        const news = document.getElementById("news");
+        const updated = document.getElementById("updated");
+        
+        loading.style.display = "block";
+        loading.textContent = "Loading latest news...";
+        news.innerHTML = "";
+        
+        fetch(`/api/news?scope=${scope}`)
+          .then((r) => r.json())
+          .then((items) => {
+            loading.style.display = "none";
+            
+            if (items.length === 0) {
+              news.innerHTML = '<p style="text-align:center;color:#666;padding:40px;">No news items found for this scope.</p>';
+            } else {
+              const html = items
+                .map(
+                  (item) =>
+                    `<article>
+              <h2><a href="${item.link}" target="_blank">${item.title}</a></h2>
+              <time>${new Date(item.pubDate).toLocaleDateString()}</time>
+            </article>`
+                )
+                .join("");
+              news.innerHTML = html;
+            }
+            
+            const now = new Date();
+            updated.textContent = `Updated: ${now.toLocaleTimeString()}`;
+          })
+          .catch((err) => {
+            loading.style.display = "none";
+            news.innerHTML = `<p style="text-align:center;color:#d9534f;padding:40px;">Error loading news: ${err.message}</p>`;
+          });
+      }
+      
+      // Tab click handlers
+      document.querySelectorAll(".tab").forEach((tab) => {
+        tab.addEventListener("click", () => {
+          // Update active tab styling
+          document.querySelectorAll(".tab").forEach((t) => t.classList.remove("active"));
+          tab.classList.add("active");
+          
+          // Load news for selected scope
+          currentScope = tab.dataset.scope;
+          loadNews(currentScope);
         });
+      });
+      
+      // Refresh button handler
+      document.getElementById("refresh").addEventListener("click", () => {
+        loadNews(currentScope);
+      });
+      
+      // Initial load
+      loadNews(currentScope);
     </script>
 
     <p style="margin: 0.5rem 0 1rem 0; font-size: 0.9rem">
