@@ -1,0 +1,49 @@
+<h2>💧 Water Awareness Jersey – PFAS Watch Weekly</h2>
+<p><b>Data pull date/time:</b> 2025-10-31 10:01 (Europe/Jersey)</p>
+
+<hr>
+
+<p><b>1. Standards (EU – ECHA)</b><br>
+<a href="https://echa.europa.eu/-/echa-announces-timeline-for-pfas-restriction-evaluation" target="_blank">ECHA announces timeline for PFAS restriction evaluation</a> (Aug 2025)<br>
+The European Chemicals Agency has set a target to complete its PFAS restriction evaluation by 2026.</p>
+
+<p><b>2. Standards (UK/EU)</b><br>
+<a href="https://chemtrust.org/wp-content/uploads/UK-vs-EU-PFAS-divergence-table-October_2025.pdf" target="_blank">UK-vs-EU PFAS regulatory divergence table</a> (Oct 2025)<br>
+Comparison shows the UK is lagging the EU in PFAS controls, raising alignment risks for Jersey.</p>
+
+<p><b>3. Health (USA/Global)</b><br>
+<a href="https://www.nature.com/articles/s41370-024-00742-2" target="_blank">PFAS in drinking water linked to higher cancer incidence</a> (Oct 2025)<br>
+Study estimates thousands of U.S. cancer cases per year may be linked to PFAS exposure via water.</p>
+
+<p><b>4. Sludge/Incineration (UK)</b><br>
+<a href="https://assets.publishing.service.gov.uk/media/68dd29d9dadf7616351e4ccc/Rapid_evidence_assessment_of_PFAS_incineration_and_alternative-remediation-methods_-_report.pdf" target="_blank">Rapid Evidence Assessment: PFAS incineration & remediation methods</a> (Sep 2025)<br>
+UK report finds high-temperature incineration is currently the only mature destruction route for PFAS waste.</p>
+
+<p><b>5. Pathways (UK)</b><br>
+<a href="https://assets.publishing.service.gov.uk/media/682dcf447fb7a7d9cd775167/A_quick_scoping_review_of_airborne_perfluorooctanoic_acid__PFOA__and_other_per-_and_polyfluoroalkyl_substances__PFAS__-_report.pdf" target="_blank">Scoping review of airborne PFAS transport & deposition</a> (May 2025)<br>
+PFAS can travel via air and deposit to soil, water and food chains — relevant for island environments like Jersey.</p>
+
+<p><b>6. Regulation (USA)</b><br>
+<a href="https://www.epa.gov/newsreleases/epa-announces-it-will-keep-maximum-contaminant-levels-pfoa-pfos" target="_blank">EPA retains PFOA/PFOS MCLs, extends compliance timeline</a> (May 2025)<br>
+The U.S. EPA keeps limits for PFOA/PFOS at 4 ppt but extends compliance to 2031.</p>
+
+<p><b>7. Technology (UK/Global)</b><br>
+<a href="https://www.dwi.gov.uk/wp-content/uploads/2025/02/Recommendations-and-full-report-of-the-advisory-group-Dec-2024.pdf" target="_blank">DWI advisory group report on PFAS treatment — GAC/IX/RO focus</a> (Feb 2025)<br>
+Advisory group recommends activated carbon, ion-exchange and reverse-osmosis treatment; short-chain PFAS remain challenging.</p>
+
+<p><b>8. Funding/Infrastructure (UK)</b><br>
+<a href="https://www.pfasfree.org.uk/news/regulating-pfas-in-the-uk-a-way-forward" target="_blank">UK PFAS remediation cost estimate (£31 bn-£121 bn)</a> (2025)<br>
+Estimates place the UK’s PFAS clean-up costs in the tens of billions, underscoring the need for investment.</p>
+
+<hr>
+
+<h3>💭 Implications for Jersey</h3>
+<p>Jersey must stay ahead of tightening UK/EU PFAS standards by accelerating monitoring, treatment, and funding plans for water and waste systems. Upgrading sludge, incineration, and air-pathway controls is critical to protect public health.</p>
+
+<p>🌊 <b>Follow our work:</b> <a href="https://facebook.com/waterawarenessjersey" target="_blank">Water Awareness Jersey on Facebook</a><br>
+✉️ Contact: waterawarenessjersey@protonmail.com</p>
+
+<hr>
+
+<p style="font-size:13px;color:#777;">Prepared by <b>Paul Le Claire</b> — Founder, Water Awareness Jersey<br>
+Independent PFAS Science & Policy Digest – © 2025 All rights reserved.</p>
