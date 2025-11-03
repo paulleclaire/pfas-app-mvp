@@ -4,10 +4,3 @@ entrypoint = "README.md"
 [nix]
 channel = "stable-24_05"
 packages = ["cowsay"]
-
-[agent]
-expertMode = true
-
-[[ports]]
-localPort = 5000
-externalPort = 80
