@@ -1,13 +1,6 @@
-entrypoint = "index.js"
+run = "cowsay Configure me!"
+entrypoint = "README.md"
 
-[deployment]
-deploymentTarget = "vm"
-buildCommand = "npm ci"
-runCommand = "npm start"
-
-[[ports]]
-localPort = 5000
-externalPort = 80
-
-[agent]
-expertMode = true
+[nix]
+channel = "stable-24_05"
+packages = ["cowsay"]
