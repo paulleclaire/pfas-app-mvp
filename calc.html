@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PFAS Water-Intake Calculator</title>
+<style>
+body{
+  font-family:system-ui,Arial,sans-serif;
+  margin:2rem;
+  max-width:600px;
+}
+label{display:block;margin-top:1rem}
+.row{
+  display:flex;
+  align-items:center;
+  gap:0.75rem;
+  flex-wrap:nowrap;
+}
+input{
+  padding:.5rem;
+  width:120px;
+  font-size:1rem;
+}
+.unit-btn{
+  padding:.5rem 1rem;
+  border:1px solid #ccc;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:bold;
+  background:#eee;
+}
+.unit-btn.active{
+  background:#ffd700;
+  border-color:#999;
+}
+button{
+  background:#ffcc00;
+  border:none;
+  padding:8px 14px;
+  border-radius:6px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.muted{color:#666}
+.output{margin-top:1.5rem}
+</style>
+</head>
+
+<body>
+<h1>PFAS Water-Intake Calculator</h1>
+<p class="muted">EFSA TWI = 4.4 ng/kg/week.</p>
+
+<label>Body weight</label>
+<div class="row">
+  <input id="w" type="number" step="0.1" value="70">
+  <div>
+    <span id="kgBtn"  class="unit-btn active">kg</span>
+    <span id="lbBtn"  class="unit-btn">lbs</span>
+  </div>
+</div>
+
+<label>PFAS in water (ng/L)</label>
+<input id="c" type="number" step="0.1" value="51">
+
+<div class="output">
+  <div id="result"></div>
+  <small id="explain" class="muted"></small>
+</div>
+
+<p>
+  <button onclick="window.open('https://ko-fi.com/pfasapp','_blank')">❤️ Support us</button>
+</p>
+
+<p><a href="/index.html">← Back to news</a></p>
+
+<script>
+const TWI = 4.4; // ng per kg per week
+const LBS_TO_KG = 0.45359237;
+let unit = "kg";
+
+function updateUnits(newUnit){
+  unit = newUnit;
+  document.getElementById("kgBtn").classList.toggle("active", unit==="kg");
+  document.getElementById("lbBtn").classList.toggle("active", unit==="lb");
+  calc();
+}
+
+function calc(){
+  let w = parseFloat(document.getElementById("w").value)||0;
+  if(unit==="lb") w *= LBS_TO_KG;
+  const c = parseFloat(document.getElementById("c").value)||0;
+  if(!w||!c){
+    document.getElementById("result").textContent="";
+    document.getElementById("explain").textContent="";
+    return;
+  }
+  const allowed_ng_day=(TWI*w)/7;
+  const allowed_L_day=allowed_ng_day/c;
+  document.getElementById("result").innerHTML=
+    `<strong>${allowed_L_day.toFixed(2)} L/day</strong>`;
+  document.getElementById("explain").textContent=
+    `Allowed PFAS per day = ${allowed_ng_day.toFixed(1)} ng at ${c} ng/L in water.`;
+}
+
+document.getElementById("w").addEventListener("input",calc);
+document.getElementById("c").addEventListener("input",calc);
+document.getElementById("kgBtn").addEventListener("click",()=>updateUnits("kg"));
+document.getElementById("lbBtn").addEventListener("click",()=>updateUnits("lb"));
+
+calc();
+</script>
+</body>
+</html>
