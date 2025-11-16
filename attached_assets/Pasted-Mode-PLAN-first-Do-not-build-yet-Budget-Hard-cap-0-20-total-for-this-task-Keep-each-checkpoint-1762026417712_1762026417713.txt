@@ -1,0 +1,50 @@
+Mode: PLAN first. Do not build yet.
+Budget: Hard cap $0.20 total for this task. Keep each checkpoint ≤ $0.10. If you need more, STOP and ask.
+Show me: a numbered PLAN and the cost estimate per checkpoint. Show diffs before applying.
+
+Goal: Turn my PFAS app into an international ticker with a Jersey tab, using the existing stack (Node/Express + rss-parser). Keep port 5000, keep webview.
+
+Back-end (index.js):
+	1.	Add multi-scope feeds:
+	•	global: broad PFAS:
+	•	https://news.google.com/rss/search?q=PFAS%20OR%20%22forever%20chemicals%22&hl=en-GB&gl=GB&ceid=GB:en
+	•	https://news.google.com/rss/search?q=PFAS%20water%20OR%20drinking%20water%20OR%20health&hl=en-GB&gl=GB&ceid=GB:en
+	•	jersey: Jersey-focused:
+	•	https://news.google.com/rss/search?q=PFAS%20Jersey%20%22Channel%20Islands%22&hl=en-GB&gl=GB&ceid=GB:en
+	•	https://news.google.com/rss/search?q=pfas%20site%3Ajerseyeveningpost.com&hl=en-GB&gl=GB&ceid=GB:en
+	•	https://news.google.com/rss/search?q=pfas%20site%3Abailiwickexpress.com&hl=en-GB&gl=GB&ceid=GB:en
+	•	https://news.google.com/rss/search?q=pfas%20site%3Aitv.com%20%22Channel%20Islands%22&hl=en-GB&gl=GB&ceid=GB:en
+	•	https://news.google.com/rss/search?q=pfas%20site%3Agov.je&hl=en-GB&gl=GB&ceid=GB:en
+	•	https://news.google.com/rss/search?q=pfas%20site%3Astatesassembly.gov.je&hl=en-GB&gl=GB&ceid=GB:en
+	•	official: EPA/EU/WHO:
+	•	https://news.google.com/rss/search?q=pfas%20site%3Aepa.gov&hl=en-GB&gl=GB&ceid=GB:en
+	•	https://news.google.com/rss/search?q=pfas%20site%3Aecha.europa.eu&hl=en-GB&gl=GB&ceid=GB:en
+	•	https://news.google.com/rss/search?q=pfas%20site%3Aeuropa.eu&hl=en-GB&gl=GB&ceid=GB:en
+	•	https://news.google.com/rss/search?q=pfas%20site%3Awho.int&hl=en-GB&gl=GB&ceid=GB:en
+	•	science: journals/news:
+	•	https://news.google.com/rss/search?q=PFAS%20site%3Anature.com&hl=en-GB&gl=GB&ceid=GB:en
+	•	https://news.google.com/rss/search?q=PFAS%20site%3Asciencedaily.com&hl=en-GB&gl=GB&ceid=GB:en
+	•	https://news.google.com/rss/search?q=PFAS%20site%3Athelancet.com&hl=en-GB&gl=GB&ceid=GB:en
+	2.	Update /api/news to accept ?scope=global|jersey|official|science (default global).
+	3.	Add in-memory cache per scope (TTL = 10 minutes).
+	4.	Normalize fields: title, link, pubDate (ISO), dedupe by link, sort desc by date, cap to 25 items.
+
+Front-end (public/index.html):
+	1.	Add a simple tab bar at the top: Global | Jersey | Official | Science.
+	2.	Implement with vanilla JS (no new libs): clicking a tab fetches /api/news?scope=… and re-renders the list.
+	3.	Keep existing styling; add a small “Updated: ” label and a Refresh button that reloads the active scope.
+	4.	Keep the current header/footer/metadata you see.
+
+Routing/preview:
+	•	Ensure / serves public/index.html.
+	•	Keep port 5000 and webview; no publish or autoscale changes.
+
+Acceptance tests (run and verify):
+	•	GET /health → { ok: true, uptime: … }
+	•	GET /api/news?scope=global → JSON array
+	•	GET /api/news?scope=jersey → JSON array with Jersey sources likely present
+	•	Clicking Global/Jersey/Official/Science switches content without page reload
+	•	Refresh button reloads the current scope
+	•	Cache reduces repeated fetch times within 10 minutes
+
+If any checkpoint would exceed the budget, STOP and ask.
