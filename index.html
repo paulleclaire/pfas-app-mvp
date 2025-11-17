@@ -191,40 +191,54 @@ Let them speak.
   </div>
 
   <script>
-    const TWI = 4.4;
-    const LBS_TO_KG = 0.45359237;
-    let unit = "kg";
+const TWI = 4.4;
+const LBS_TO_KG = 0.45359237;
+let unit = "kg";
+let ageGroup = "adult";
 
-    function updateUnits(newUnit) {
-      unit = newUnit;
-      document.getElementById("kgBtn").classList.toggle("active", unit === "kg");
-      document.getElementById("lbBtn").classList.toggle("active", unit === "lb");
-      calc();
-    }
+function updateUnits(newUnit) {
+  unit = newUnit;
+  document.getElementById("kgBtn").classList.toggle("active", unit === "kg");
+  document.getElementById("lbBtn").classList.toggle("active", unit === "lb");
+  calc();
+}
 
-    function calc() {
-      let w = parseFloat(document.getElementById("w").value) || 0;
-      if (unit === "lb") w *= LBS_TO_KG;
-      const c = parseFloat(document.getElementById("c").value) || 0;
-      if (!w || !c) {
-        document.getElementById("result").textContent = "";
-        document.getElementById("explain").textContent = "";
-        return;
-      }
-      const allowed_ng_day = (TWI * w) / 7;
-      const allowed_L_day = allowed_ng_day / c;
-      document.getElementById("result").innerHTML =
-        `<strong>${allowed_L_day.toFixed(2)} L/day</strong>`;
-      document.getElementById("explain").textContent =
-        `Allowed PFAS per day = ${allowed_ng_day.toFixed(1)} ng at ${c} ng/L in water.`;
-    }
+function calc() {
+  let w = parseFloat(document.getElementById("w").value) || 0;
+  if (unit === "lb") w *= LBS_TO_KG;
+  const c = parseFloat(document.getElementById("c").value) || 0;
+  if (!w || !c) {
+    document.getElementById("result").textContent = "";
+    document.getElementById("explain").textContent = "";
+    return;
+  }
 
-    document.getElementById("w").addEventListener("input", calc);
-    document.getElementById("c").addEventListener("input", calc);
-    document.getElementById("kgBtn").addEventListener("click", () => updateUnits("kg"));
-    document.getElementById("lbBtn").addEventListener("click", () => updateUnits("lb"));
+  const hydrationNeed = w * 0.035; // assuming child logic only for now
+  const safeDose = (TWI * w) / 7;
+  const safeLitres = safeDose / c;
+  const shortfall = hydrationNeed - safeLitres;
+  const percentShort = hydrationNeed ? Math.round(100 * shortfall / hydrationNeed) : 0;
+  const percentOver = hydrationNeed ? Math.round((hydrationNeed * c) / safeDose * 100) : 0;
 
-    calc();
-  </script>
+  const html = `
+    Results for 7-year-old boy (${w.toFixed(0)} kg, PFAS: ${c} ng/L):<br><br>
+    ✅ <strong>EFSA safe PFAS dose:</strong> ${safeDose.toFixed(2)} ng/day<br><br>
+    ⚠️ <strong>Safe to drink:</strong> ${safeLitres.toFixed(2)} L/day<br><br>
+    💧 <strong>Healthy hydration need:</strong> ${hydrationNeed.toFixed(2)} L/day<br><br>
+    📉 <strong>Shortfall:</strong> ${shortfall.toFixed(2)} L/day (${percentShort}% less than needed)<br><br>
+    🚨 <strong>If he drinks enough to stay hydrated:</strong> ${percentOver}% over the EFSA immune-safe limit
+  `;
+
+  document.getElementById("result").innerHTML = html.trim();
+  document.getElementById("explain").textContent = "";
+}
+
+document.getElementById("w").addEventListener("input", calc);
+document.getElementById("c").addEventListener("input", calc);
+document.getElementById("kgBtn").addEventListener("click", () => updateUnits("kg"));
+document.getElementById("lbBtn").addEventListener("click", () => updateUnits("lb"));
+
+calc();
+</script>
 </body>
 </html>
