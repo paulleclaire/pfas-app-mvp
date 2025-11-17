@@ -25,6 +25,7 @@
       width: 120px;
       font-size: 1rem;
     }
+
     .unit-btn {
       padding: 0.5rem 1rem;
       border: 1px solid #ccc;
@@ -33,10 +34,12 @@
       font-weight: bold;
       background: #eee;
     }
+
     .unit-btn.active {
       background: #ffd700;
       border-color: #999;
     }
+
     button {
       background: #ffcc00;
       border: none;
@@ -45,22 +48,36 @@
       font-weight: bold;
       cursor: pointer;
     }
+
     .muted { color: #666; }
     .output { margin-top: 1.5rem; }
 
     .ticker {
-      white-space: nowrap;
       overflow: hidden;
+      white-space: nowrap;
       border-top: 1px solid #eee;
       border-bottom: 1px solid #eee;
       padding: 6px 0;
       margin: 8px 0;
+      position: relative;
+    }
+
+    .ticker-text {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scroll 20s linear infinite;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
     }
 
     .ticker a {
       text-decoration: none;
       color: #0055cc;
       font-weight: bold;
+      margin-right: 3rem;
     }
   </style>
 </head>
@@ -69,7 +86,14 @@
   <h1>PFAS Water-Intake Calculator</h1>
   <p class="muted">EFSA TWI = 4.4 ng/kg/week.</p>
 
-  <div class="ticker"><span id="ticker-text">Loading news…</span></div>
+  <div class="ticker">
+    <div class="ticker-text" id="ticker-text">
+      <a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">Jersey PFAS levels reach 51 ng/L — well above EFSA's safe threshold.</a>
+      <a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">UK limit is 100 ng/L — EFSA allows 4.4 ng/kg/week in total intake.</a>
+      <a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">Water Awareness Jersey calls for testing and transparency.</a>
+      <a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">PFAS is in global rainfall — yet public health remains silent.</a>
+    </div>
+  </div>
 
   <label>Body weight</label>
   <div class="row">
@@ -127,24 +151,6 @@
     document.getElementById("lbBtn").addEventListener("click", () => updateUnits("lb"));
 
     calc();
-
-    const headlines = [
-      { text: "Jersey PFAS levels reach 51 ng/L — well above EFSA's safe threshold.", url: "https://www.facebook.com/WaterAwarenessJersey/" },
-      { text: "UK limit for PFAS in water is 100 ng/L — EFSA's is 4.4 ng/kg/week.", url: "https://www.facebook.com/WaterAwarenessJersey/" },
-      { text: "Water Awareness Jersey calls for independent public health monitoring.", url: "https://www.facebook.com/WaterAwarenessJersey/" },
-      { text: "PFAS is in rainwater globally — but some governments still deny the risk.", url: "https://www.facebook.com/WaterAwarenessJersey/" }
-    ];
-
-    let tickerIndex = 0;
-    function rotateTicker() {
-      const item = headlines[tickerIndex];
-      document.getElementById("ticker-text").innerHTML =
-        `<a href="${item.url}" target="_blank">${item.text}</a>`;
-      tickerIndex = (tickerIndex + 1) % headlines.length;
-    }
-
-    setInterval(rotateTicker, 10000);
-    rotateTicker();
   </script>
 </body>
 </html>
