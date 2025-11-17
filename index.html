@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <title>PFAS Water-Intake Calculator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
@@ -9,31 +9,42 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
       margin: 2rem;
       max-width: 700px;
+      line-height: 1.5;
     }
-    .muted { color: #666 }
+
+    label { display: block; margin-top: 1rem; }
+
     .row {
       display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      flex-wrap: nowrap;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
     }
+
     input {
-      padding: .5rem;
+      padding: 0.5rem;
       width: 120px;
       font-size: 1rem;
+      appearance: auto;
     }
+
     .unit-btn {
-      padding: .5rem 1rem;
+      padding: 0.5rem 1rem;
       border: 1px solid #ccc;
       border-radius: 6px;
       cursor: pointer;
       font-weight: bold;
       background: #eee;
+      display: inline-block;
+      margin-right: 0.5rem;
+      margin-top: 0.25rem;
     }
+
     .unit-btn.active {
       background: #ffd700;
       border-color: #999;
     }
+
     button {
       background: #ffcc00;
       border: none;
@@ -42,18 +53,10 @@
       font-weight: bold;
       cursor: pointer;
     }
-    .output {
-      margin-top: 1.5rem;
-    }
-    .scrollbox {
-      background: #ffffcc;
-      padding: 1rem;
-      margin-top: 2rem;
-      border-radius: 8px;
-      max-height: 300px;
-      overflow-y: auto;
-      white-space: pre-wrap;
-    }
+
+    .muted { color: #666; }
+    .output { margin-top: 1.5rem; }
+
     .ticker {
       overflow: hidden;
       white-space: nowrap;
@@ -63,20 +66,47 @@
       margin: 8px 0 24px;
       position: relative;
     }
+
     .ticker-text {
       display: inline-block;
       padding-left: 100%;
       animation: scroll 40s linear infinite;
     }
+
     @keyframes scroll {
       0% { transform: translateX(0); }
       100% { transform: translateX(-100%); }
     }
+
     .ticker a {
       text-decoration: none;
       color: #0055cc;
       font-weight: bold;
       margin-right: 3rem;
+    }
+
+    .viewfinder {
+      background: #fff8cc;
+      border-left: 5px solid #f5c400;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+    }
+
+    .scrollbox {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      height: 300px;
+      overflow-y: auto;
+      background: #f9f9f9;
+      white-space: pre-wrap;
+      font-size: 0.95rem;
+    }
+
+    h2 {
+      margin-top: 2rem;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 0.5rem;
     }
   </style>
 </head>
@@ -93,12 +123,20 @@
 
   <h1>PFAS Water-Intake Calculator</h1>
 
+  <p>
+    Enter your body weight to see how much water you can safely drink a day, based upon the PFAS levels in your local drinking water, before you exceed the safe weekly limit, set out by the European Food Safety Authority. 👨‍🔬 👩‍🔬 🧑‍🔬
+  </p>
+
+  <div class="viewfinder">
+    This app shows that when PFAS is present in your drinking water, the dose you get simply by staying alive can exceed your immune-safe limit — even before eating any food. It uses the EFSA scientific safety standard: 4.4 ng per kg body weight per week. No spin. Just maths.
+  </div>
+
   <label>Body weight</label>
   <div class="row">
     <input id="w" type="number" step="0.1" value="70">
     <div>
-      <span id="kgBtn"  class="unit-btn active">kg</span>
-      <span id="lbBtn"  class="unit-btn">lbs</span>
+      <span id="kgBtn" class="unit-btn active">kg</span>
+      <span id="lbBtn" class="unit-btn">lbs</span>
     </div>
   </div>
 
@@ -114,8 +152,10 @@
     <button onclick="window.open('https://ko-fi.com/pfasapp','_blank')">❤️ Support us</button>
   </p>
 
-  <div class="scrollbox">
-This tool shows one thing with absolute clarity:
+  <h2>About this App</h2>
+  <p><em>For those with a thirst for knowledge, read on:</em></p>
+
+  <div class="scrollbox">This tool shows one thing with absolute clarity:
 when PFAS is in your drinking water, the dose you receive simply by staying alive can exceed the official safety limit — even before you eat a single mouthful of food.
 
 EFSA — the European Food Safety Authority — set a strict weekly safety limit for PFAS (4.4 ng per kg of body-weight per week). They did this because PFAS suppresses children’s immune systems at blood levels already seen in Europe.
@@ -151,6 +191,14 @@ This app exposes that risk with clarity.
 No distractions. No spin. Just the numbers.
 
 Let them speak.
+
+──────────────────────────────
+
+The European Food Safety Authority (EFSA) is the agency of the European Union (EU) that provides independent scientific advice and communicates on existing and emerging risks associated with the food chain. EFSA was established in February 2002 in Parma, Italy. It had a yearly budget of €118.6 million, and a total staff of 542 as of 2021.
+
+The work of EFSA covers all matters with a direct or indirect impact on food and feed safety, including animal health and welfare, plant protection and plant health and nutrition. EFSA supports the European Commission, the European Parliament and EU member states in taking effective and timely risk management decisions that ensure the protection of the health of European consumers and the safety of the food and feed chain. EFSA also communicates to the public in an open and transparent way on all matters within its remit.
+
+https://www.efsa.europa.eu/en
   </div>
 
   <script>
