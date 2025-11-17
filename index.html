@@ -19,12 +19,17 @@
       flex-direction: column;
       align-items: flex-start;
       gap: 0.5rem;
+      margin-bottom: 1rem;
     }
 
     input {
       padding: 0.5rem;
       width: 120px;
       font-size: 1rem;
+    }
+
+    input[type=number]::-webkit-inner-spin-button {
+      opacity: 1;
     }
 
     .unit-btn {
@@ -34,6 +39,7 @@
       cursor: pointer;
       font-weight: bold;
       background: #eee;
+      margin-right: 0.5rem;
     }
 
     .unit-btn.active {
