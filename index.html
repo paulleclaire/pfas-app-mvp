@@ -91,7 +91,7 @@
   </p>
 
   <script>
-    const TWI = 4.4; // ng per kg per week
+    const TWI = 4.4;
     const LBS_TO_KG = 0.45359237;
     let unit = "kg";
 
@@ -126,12 +126,11 @@
 
     calc();
 
-    // Ticker with Links + 10s interval
     const headlines = [
-      { text: "Jersey PFAS levels reach 51 ng/L — well above EFSA's safe threshold.", url: "https://example.com/news1" },
-      { text: "UK limit for PFAS in water is 100 ng/L — EFSA's is 4.4 ng/kg/week.", url: "https://example.com/news2" },
-      { text: "Water Awareness Jersey calls for independent public health monitoring.", url: "https://example.com/news3" },
-      { text: "PFAS is in rainwater globally — but some governments still deny the risk.", url: "https://example.com/news4" }
+      { text: "Jersey PFAS levels reach 51 ng/L — well above EFSA's safe threshold.", url: "https://www.facebook.com/WaterAwarenessJersey/" },
+      { text: "UK limit for PFAS in water is 100 ng/L — EFSA's is 4.4 ng/kg/week.", url: "https://www.facebook.com/WaterAwarenessJersey/" },
+      { text: "Water Awareness Jersey calls for independent public health monitoring.", url: "https://www.facebook.com/WaterAwarenessJersey/" },
+      { text: "PFAS is in rainwater globally — but some governments still deny the risk.", url: "https://www.facebook.com/WaterAwarenessJersey/" }
     ];
 
     let tickerIndex = 0;
@@ -142,7 +141,7 @@
       tickerIndex = (tickerIndex + 1) % headlines.length;
     }
 
-    setInterval(rotateTicker, 10000); // 10 seconds
+    setInterval(rotateTicker, 10000);
     rotateTicker();
   </script>
 </body>
