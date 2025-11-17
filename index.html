@@ -25,7 +25,6 @@
       padding: 0.5rem;
       width: 120px;
       font-size: 1rem;
-      appearance: auto;
     }
 
     .unit-btn {
@@ -35,9 +34,6 @@
       cursor: pointer;
       font-weight: bold;
       background: #eee;
-      display: inline-block;
-      margin-right: 0.5rem;
-      margin-top: 0.25rem;
     }
 
     .unit-btn.active {
@@ -85,14 +81,6 @@
       margin-right: 3rem;
     }
 
-    .viewfinder {
-      background: #fff8cc;
-      border-left: 5px solid #f5c400;
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-      font-size: 1rem;
-    }
-
     .scrollbox {
       border: 1px solid #ccc;
       padding: 1rem;
@@ -112,6 +100,11 @@
 </head>
 
 <body>
+  <h1>PFAS Water-Intake Calculator</h1>
+
+  <p>Enter your body weight to see how much water you can safely drink a day,<br>
+  based upon the PFAS levels in your local drinking water.</p>
+
   <div class="ticker">
     <div class="ticker-text" id="ticker-text">
       <a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">Jersey PFAS levels reach 51 ng/L — well above EFSA's safe threshold.</a>
@@ -121,15 +114,7 @@
     </div>
   </div>
 
-  <h1>PFAS Water-Intake Calculator</h1>
-
-  <p>
-    Enter your body weight to see how much water you can safely drink a day, based upon the PFAS levels in your local drinking water, before you exceed the safe weekly limit, set out by the European Food Safety Authority. 👨‍🔬 👩‍🔬 🧑‍🔬
-  </p>
-
-  <div class="viewfinder">
-    This app shows that when PFAS is present in your drinking water, the dose you get simply by staying alive can exceed your immune-safe limit — even before eating any food. It uses the EFSA scientific safety standard: 4.4 ng per kg body weight per week. No spin. Just maths.
-  </div>
+  <p>This app shows that when PFAS is present in your drinking water, the dose you get simply by drinking enough to stay alive, can exceed your immune-safe limit — even before eating any food. Based upon the logic of a weekly dietary maximum tolerable intake, before you exceed the safe weekly limit, set out by the European Food Safety Authority. It uses the EFSA scientific safety standard: 4.4 ng per kg body weight per week. No spin. Just maths. 👨‍🔬 👩‍🔬 🧑‍🔬</p>
 
   <label>Body weight</label>
   <div class="row">
@@ -155,20 +140,7 @@
   <h2>About this App</h2>
   <p><em>For those with a thirst for knowledge, read on:</em></p>
 
-  <div class="scrollbox">This tool shows one thing with absolute clarity:
-when PFAS is in your drinking water, the dose you receive simply by staying alive can exceed the official safety limit — even before you eat a single mouthful of food.
-
-EFSA — the European Food Safety Authority — set a strict weekly safety limit for PFAS (4.4 ng per kg of body-weight per week). They did this because PFAS suppresses children’s immune systems at blood levels already seen in Europe.
-
-Your water company, your government, and your postcode do not change human biology. The safe dose for your immune system stays the same wherever you travel. Yet the number that governments call “safe” changes across borders, time zones, and political circumstances. Your health does not.
-
-This app removes the confusion. It shows the same calculation everywhere on Earth, built directly from EFSA’s scientific method and formula. No spin. No politics. Just arithmetic.
-
-If you want the deeper explanation, the evidence, and the logic, read on.
-
-──────────────────────────────
-
-PFAS are industrial chemicals that accumulate in your blood for years. Once inside you, they stay. EFSA examined animal studies, human biomonitoring, and vaccine-response data in children. Their scientists found one critical effect: children exposed to higher PFAS had weaker antibody responses to vaccines. They traced this back using PBPK modelling and set a strict weekly limit — the Tolerable Weekly Intake (TWI). This limit is the scientific safe-dose.
+  <div class="scrollbox">PFAS are industrial chemicals that accumulate in your blood for years. Once inside you, they stay. EFSA examined animal studies, human biomonitoring, and vaccine-response data in children. Their scientists found one critical effect: children exposed to higher PFAS had weaker antibody responses to vaccines. They traced this back using PBPK modelling and set a strict weekly limit — the Tolerable Weekly Intake (TWI). This limit is the scientific safe-dose.
 
 • EFSA TWI: 4.4 nanograms per kilogram of body weight per week
 • Based on immune suppression in children
