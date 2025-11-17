@@ -54,6 +54,12 @@
       padding: 6px 0;
       margin: 8px 0;
     }
+
+    .ticker a {
+      text-decoration: none;
+      color: #0055cc;
+      font-weight: bold;
+    }
   </style>
 </head>
 
@@ -120,19 +126,23 @@
 
     calc();
 
-    // News Ticker Script
+    // Ticker with Links + 10s interval
     const headlines = [
-      "Jersey PFAS levels reach 51 ng/L — well above EFSA's safe threshold.",
-      "UK limit for PFAS in water is 100 ng/L — EFSA's is 4.4 ng/kg/week.",
-      "Water Awareness Jersey calls for independent public health monitoring.",
-      "PFAS is in rainwater globally — but some governments still deny the risk."
+      { text: "Jersey PFAS levels reach 51 ng/L — well above EFSA's safe threshold.", url: "https://example.com/news1" },
+      { text: "UK limit for PFAS in water is 100 ng/L — EFSA's is 4.4 ng/kg/week.", url: "https://example.com/news2" },
+      { text: "Water Awareness Jersey calls for independent public health monitoring.", url: "https://example.com/news3" },
+      { text: "PFAS is in rainwater globally — but some governments still deny the risk.", url: "https://example.com/news4" }
     ];
+
     let tickerIndex = 0;
     function rotateTicker() {
-      document.getElementById("ticker-text").textContent = headlines[tickerIndex];
+      const item = headlines[tickerIndex];
+      document.getElementById("ticker-text").innerHTML =
+        `<a href="${item.url}" target="_blank">${item.text}</a>`;
       tickerIndex = (tickerIndex + 1) % headlines.length;
     }
-    setInterval(rotateTicker, 5000);
+
+    setInterval(rotateTicker, 10000); // 10 seconds
     rotateTicker();
   </script>
 </body>
