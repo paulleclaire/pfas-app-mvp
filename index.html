@@ -18,8 +18,12 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .unit-toggle {
+      display: flex;
       gap: 0.5rem;
-      margin-bottom: 1rem;
     }
 
     input {
@@ -28,8 +32,11 @@
       font-size: 1rem;
     }
 
-    input[type=number]::-webkit-inner-spin-button {
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
       opacity: 1;
+      -webkit-appearance: auto;
+      margin: 0;
     }
 
     .unit-btn {
@@ -39,7 +46,6 @@
       cursor: pointer;
       font-weight: bold;
       background: #eee;
-      margin-right: 0.5rem;
     }
 
     .unit-btn.active {
@@ -87,6 +93,11 @@
       margin-right: 3rem;
     }
 
+    .viewfinder {
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+    }
+
     .scrollbox {
       border: 1px solid #ccc;
       padding: 1rem;
@@ -119,10 +130,14 @@
     </div>
   </div>
 
+  <div class="viewfinder">
+    This app shows that when PFAS is present in your drinking water, the dose you get simply by staying alive can exceed your immune-safe limit — even before eating any food. It uses the EFSA scientific safety standard: 4.4 ng per kg body weight per week. No spin. Just maths. 👨‍🔬 👩‍🔬 🧑‍🔬
+  </div>
+
   <label>Body weight</label>
   <div class="row">
     <input id="w" type="number" step="0.1" value="70">
-    <div>
+    <div class="unit-toggle">
       <span id="kgBtn" class="unit-btn active">kg</span>
       <span id="lbBtn" class="unit-btn">lbs</span>
     </div>
@@ -141,7 +156,8 @@
   </p>
 
   <h2>About this App</h2>
-  <div class="scrollbox">This app shows that when PFAS is present in your drinking water, the dose you get simply by drinking enough to stay alive, can exceed your immune-safe limit — even before eating any food. Based upon the logic of a weekly dietary maximum tolerable intake, before you exceed the safe weekly limit, set out by the European Food Safety Authority. It uses the EFSA scientific safety standard: 4.4 ng per kg body weight per week. No spin. Just maths. 👨‍🔬 👩‍🔬 🧑‍🔬
+  <div class="scrollbox">
+This app shows that when PFAS is present in your drinking water, the dose you get simply by drinking enough to stay alive, can exceed your immune-safe limit — even before eating any food. Based upon the logic of a weekly dietary maximum tolerable intake, before you exceed the safe weekly limit, set out by the European Food Safety Authority. It uses the EFSA scientific safety standard: 4.4 ng per kg body weight per week. No spin. Just maths. 👨‍🔬 👩‍🔬 🧑‍🔬
 
 PFAS are industrial chemicals that accumulate in your blood for years. Once inside you, they stay. EFSA examined animal studies, human biomonitoring, and vaccine-response data in children. Their scientists found one critical effect: children exposed to higher PFAS had weaker antibody responses to vaccines. They traced this back using PBPK modelling and set a strict weekly limit — the Tolerable Weekly Intake (TWI). This limit is the scientific safe-dose.
 
