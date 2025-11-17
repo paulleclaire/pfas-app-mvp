@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>PFAS Water-Intake Calculator</title>
+  <title>PFAS Calculator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
@@ -11,34 +11,20 @@
       max-width: 700px;
       line-height: 1.5;
     }
-
     label { display: block; margin-top: 1rem; }
-
-    .row {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.75rem;
-    }
-
-    .unit-toggle {
-      display: flex;
-      gap: 0.5rem;
-    }
-
+    .row { display: flex; flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+    .unit-toggle { display: flex; gap: 0.5rem; }
     input {
       padding: 0.5rem;
       width: 120px;
       font-size: 1rem;
     }
-
     input[type=number]::-webkit-inner-spin-button,
     input[type=number]::-webkit-outer-spin-button {
       opacity: 1;
       -webkit-appearance: auto;
       margin: 0;
     }
-
     .unit-btn {
       padding: 0.5rem 1rem;
       border: 1px solid #ccc;
@@ -47,12 +33,10 @@
       font-weight: bold;
       background: #eee;
     }
-
     .unit-btn.active {
       background: #ffd700;
       border-color: #999;
     }
-
     button {
       background: #ffcc00;
       border: none;
@@ -61,10 +45,8 @@
       font-weight: bold;
       cursor: pointer;
     }
-
     .muted { color: #666; }
     .output { margin-top: 1.5rem; }
-
     .ticker {
       overflow: hidden;
       white-space: nowrap;
@@ -74,30 +56,21 @@
       margin: 8px 0 24px;
       position: relative;
     }
-
     .ticker-text {
       display: inline-block;
       padding-left: 100%;
       animation: scroll 40s linear infinite;
     }
-
     @keyframes scroll {
       0% { transform: translateX(0); }
       100% { transform: translateX(-100%); }
     }
-
     .ticker a {
       text-decoration: none;
       color: #0055cc;
       font-weight: bold;
       margin-right: 3rem;
     }
-
-    .viewfinder {
-      margin-bottom: 1.5rem;
-      font-size: 1rem;
-    }
-
     .scrollbox {
       border: 1px solid #ccc;
       padding: 1rem;
@@ -107,7 +80,6 @@
       white-space: pre-wrap;
       font-size: 0.95rem;
     }
-
     h2 {
       margin-top: 2rem;
       border-bottom: 1px solid #ccc;
@@ -115,11 +87,8 @@
     }
   </style>
 </head>
-
 <body>
-  <h1>PFAS Water-Intake Calculator</h1>
-
-  <p>Enter your body weight to see how much water you can safely drink a day, based upon the PFAS levels in your local drinking water.</p>
+  <h1>PFAS Calculator</h1>
 
   <div class="ticker">
     <div class="ticker-text" id="ticker-text">
@@ -128,10 +97,6 @@
       <a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">Water Awareness Jersey calls for testing and transparency.</a>
       <a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">PFAS is in global rainfall — yet public health remains silent.</a>
     </div>
-  </div>
-
-  <div class="viewfinder">
-    This app shows that when PFAS is present in your drinking water, the dose you get simply by staying alive can exceed your immune-safe limit — even before eating any food. It uses the EFSA scientific safety standard: 4.4 ng per kg body weight per week. No spin. Just maths. 👨‍🔬 👩‍🔬 🧑‍🔬
   </div>
 
   <label>Body weight</label>
@@ -143,11 +108,11 @@
     </div>
   </div>
 
-<label>Age group</label>
-<div class="unit-toggle">
-  <span id="adultBtn" class="unit-btn active">Adult</span>
-  <span id="childBtn" class="unit-btn">Child</span>
-</div>
+  <label>Age group</label>
+  <div class="unit-toggle">
+    <span id="adultBtn" class="unit-btn active">Adult</span>
+    <span id="childBtn" class="unit-btn">Child</span>
+  </div>
 
   <label>PFAS in water (ng/L)</label>
   <input id="c" type="number" step="0.1" value="51">
@@ -163,7 +128,7 @@
 
   <h2>About this App</h2>
   <div class="scrollbox">
-This app shows that when PFAS is present in your drinking water, the dose you get simply by drinking enough to stay alive, can exceed your immune-safe limit — even before eating any food. Based upon the logic of a weekly dietary maximum tolerable intake, before you exceed the safe weekly limit, set out by the European Food Safety Authority. It uses the EFSA scientific safety standard: 4.4 ng per kg body weight per week. No spin. Just maths. 👨‍🔬 👩‍🔬 🧑‍🔬
+This app shows that when PFAS is present in your drinking water, the dose you get simply by drinking enough to stay alive, can exceed your immune-safe limit — even before eating any food. Based upon the logic of a weekly dietary maximum tolerable intake, before you exceed the safe weekly limit, set out by the European Food Safety Authority. It uses the EFSA scientific safety standard: 4.4 ng per kg body weight per week. No spin. Just maths.
 
 PFAS are industrial chemicals that accumulate in your blood for years. Once inside you, they stay. EFSA examined animal studies, human biomonitoring, and vaccine-response data in children. Their scientists found one critical effect: children exposed to higher PFAS had weaker antibody responses to vaccines. They traced this back using PBPK modelling and set a strict weekly limit — the Tolerable Weekly Intake (TWI). This limit is the scientific safe-dose.
 
@@ -190,7 +155,7 @@ No distractions. No spin. Just the numbers.
 Let them speak.
   </div>
 
-  <script>
+<script>
 const TWI = 4.4;
 const LBS_TO_KG = 0.45359237;
 let unit = "kg";
@@ -203,6 +168,20 @@ function updateUnits(newUnit) {
   calc();
 }
 
+document.getElementById("adultBtn").addEventListener("click", () => {
+  ageGroup = "adult";
+  document.getElementById("adultBtn").classList.add("active");
+  document.getElementById("childBtn").classList.remove("active");
+  calc();
+});
+
+document.getElementById("childBtn").addEventListener("click", () => {
+  ageGroup = "child";
+  document.getElementById("childBtn").classList.add("active");
+  document.getElementById("adultBtn").classList.remove("active");
+  calc();
+});
+
 function calc() {
   let w = parseFloat(document.getElementById("w").value) || 0;
   if (unit === "lb") w *= LBS_TO_KG;
@@ -213,7 +192,7 @@ function calc() {
     return;
   }
 
-  const hydrationNeed = w * 0.035; // assuming child logic only for now
+  const hydrationNeed = w * (ageGroup === "child" ? 0.035 : 0.03);
   const safeDose = (TWI * w) / 7;
   const safeLitres = safeDose / c;
   const shortfall = hydrationNeed - safeLitres;
@@ -221,12 +200,12 @@ function calc() {
   const percentOver = hydrationNeed ? Math.round((hydrationNeed * c) / safeDose * 100) : 0;
 
   const html = `
-    Results for 7-year-old boy (${w.toFixed(0)} kg, PFAS: ${c} ng/L):<br><br>
+    Results for ${ageGroup === "child" ? "child" : "adult"} (${w.toFixed(0)} kg, PFAS: ${c} ng/L):<br><br>
     ✅ <strong>EFSA safe PFAS dose:</strong> ${safeDose.toFixed(2)} ng/day<br><br>
     ⚠️ <strong>Safe to drink:</strong> ${safeLitres.toFixed(2)} L/day<br><br>
     💧 <strong>Healthy hydration need:</strong> ${hydrationNeed.toFixed(2)} L/day<br><br>
     📉 <strong>Shortfall:</strong> ${shortfall.toFixed(2)} L/day (${percentShort}% less than needed)<br><br>
-    🚨 <strong>If he drinks enough to stay hydrated:</strong> ${percentOver}% over the EFSA immune-safe limit
+    🚨 <strong>If you drink enough to stay hydrated:</strong> ${percentOver}% over the EFSA immune-safe limit
   `;
 
   document.getElementById("result").innerHTML = html.trim();
