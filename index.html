@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      font-family: system-ui, sans-serif;
       margin: 2rem;
       max-width: 700px;
       line-height: 1.5;
@@ -18,12 +18,8 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 0.75rem;
-    }
-
-    .unit-toggle {
-      display: flex;
       gap: 0.5rem;
+      margin-bottom: 1rem;
     }
 
     input {
@@ -32,11 +28,8 @@
       font-size: 1rem;
     }
 
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button {
+    input[type=number]::-webkit-inner-spin-button {
       opacity: 1;
-      -webkit-appearance: auto;
-      margin: 0;
     }
 
     .unit-btn {
@@ -46,6 +39,7 @@
       cursor: pointer;
       font-weight: bold;
       background: #eee;
+      margin-right: 0.5rem;
     }
 
     .unit-btn.active {
@@ -78,7 +72,7 @@
     .ticker-text {
       display: inline-block;
       padding-left: 100%;
-      animation: scroll 40s linear infinite;
+      animation: scroll 50s linear infinite;
     }
 
     @keyframes scroll {
@@ -94,7 +88,7 @@
     }
 
     .viewfinder {
-      margin-bottom: 1.5rem;
+      margin: 1rem 0;
       font-size: 1rem;
     }
 
@@ -113,31 +107,40 @@
       border-bottom: 1px solid #ccc;
       padding-bottom: 0.5rem;
     }
+
+    .result-block {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #f1f1f1;
+    }
+
+    .result-line {
+      margin: 0.5rem 0;
+      font-weight: bold;
+    }
   </style>
 </head>
 
 <body>
   <h1>PFAS Water-Intake Calculator</h1>
 
-  <p>Enter your body weight to see how much water you can safely drink a day, based upon the PFAS levels in your local drinking water.</p>
+  <p>Enter your body weight to see how much water you can safely drink per day, based on PFAS levels in your local drinking water.</p>
 
   <div class="ticker">
     <div class="ticker-text" id="ticker-text">
       <a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">Jersey PFAS levels reach 51 ng/L — well above EFSA's safe threshold.</a>
-      <a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">UK limit is 100 ng/L — EFSA allows 4.4 ng/kg/week in total intake.</a>
+      <a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">UK limit is 100 ng/L — EFSA allows 4.4 ng/kg/week total intake.</a>
       <a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">Water Awareness Jersey calls for testing and transparency.</a>
       <a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">PFAS is in global rainfall — yet public health remains silent.</a>
     </div>
   </div>
 
-  <div class="viewfinder">
-    This app shows that when PFAS is present in your drinking water, the dose you get simply by staying alive can exceed your immune-safe limit — even before eating any food. It uses the EFSA scientific safety standard: 4.4 ng per kg body weight per week. No spin. Just maths. 👨‍🔬 👩‍🔬 🧑‍🔬
-  </div>
-
   <label>Body weight</label>
   <div class="row">
     <input id="w" type="number" step="0.1" value="70">
-    <div class="unit-toggle">
+    <div>
       <span id="kgBtn" class="unit-btn active">kg</span>
       <span id="lbBtn" class="unit-btn">lbs</span>
     </div>
@@ -146,9 +149,9 @@
   <label>PFAS in water (ng/L)</label>
   <input id="c" type="number" step="0.1" value="51">
 
-  <div class="output">
+  <div class="result-block">
     <div id="result"></div>
-    <small id="explain" class="muted"></small>
+    <div id="explain" class="muted"></div>
   </div>
 
   <p>
@@ -157,31 +160,15 @@
 
   <h2>About this App</h2>
   <div class="scrollbox">
-This app shows that when PFAS is present in your drinking water, the dose you get simply by drinking enough to stay alive, can exceed your immune-safe limit — even before eating any food. Based upon the logic of a weekly dietary maximum tolerable intake, before you exceed the safe weekly limit, set out by the European Food Safety Authority. It uses the EFSA scientific safety standard: 4.4 ng per kg body weight per week. No spin. Just maths. 👨‍🔬 👩‍🔬 🧑‍🔬
+This app shows that when PFAS is present in your drinking water, the dose you get simply by drinking enough to stay alive, can exceed your immune-safe limit — even before eating any food.
 
-PFAS are industrial chemicals that accumulate in your blood for years. Once inside you, they stay. EFSA examined animal studies, human biomonitoring, and vaccine-response data in children. Their scientists found one critical effect: children exposed to higher PFAS had weaker antibody responses to vaccines. They traced this back using PBPK modelling and set a strict weekly limit — the Tolerable Weekly Intake (TWI). This limit is the scientific safe-dose.
+Based upon the logic of a weekly dietary maximum tolerable intake, before you exceed the safe weekly limit, set out by the European Food Safety Authority. It uses the EFSA scientific safety standard: 4.4 ng per kg body weight per week. No spin. Just maths. 👨‍🔬 👩‍🔬 🧑‍🔬
 
-• EFSA TWI: 4.4 nanograms per kilogram of body weight per week
-• Based on immune suppression in children
+The European Food Safety Authority (EFSA) is the agency of the European Union (EU) that provides independent scientific advice and communicates on existing and emerging risks associated with the food chain. EFSA was established in February 2002 in Parma, Italy. It had a yearly budget of €118.6 million, and a total staff of 542 as of 2021.
 
-Everything in this app is built on that number.
+The work of EFSA covers all matters with a direct or indirect impact on food and feed safety, including animal health and welfare, plant protection and plant health and nutrition. EFSA supports the European Commission, the European Parliament and EU member states in taking effective and timely risk management decisions that ensure the protection of the health of European consumers and the safety of the food and feed chain. EFSA also communicates to the public in an open and transparent way on all matters within its remit.
 
-What this calculator does:
-1. Takes your body weight
-2. Calculates your weekly PFAS “budget” using EFSA’s formula
-3. Uses your water’s PFAS level
-4. Shows how much water you can drink before you exceed that dose
-
-The logic is simple:
-• If you exceed the EFSA limit, your immune system is under strain
-• If you do that every week, PFAS builds up in your blood
-• If you do that for years, you’re at chronic risk
-
-This app exposes that risk with clarity.
-
-No distractions. No spin. Just the numbers.
-
-Let them speak.
+https://www.efsa.europa.eu/en
   </div>
 
   <script>
@@ -201,16 +188,23 @@ Let them speak.
       if (unit === "lb") w *= LBS_TO_KG;
       const c = parseFloat(document.getElementById("c").value) || 0;
       if (!w || !c) {
-        document.getElementById("result").textContent = "";
+        document.getElementById("result").innerHTML = "";
         document.getElementById("explain").textContent = "";
         return;
       }
       const allowed_ng_day = (TWI * w) / 7;
       const allowed_L_day = allowed_ng_day / c;
-      document.getElementById("result").innerHTML =
-        `<strong>${allowed_L_day.toFixed(2)} L/day</strong>`;
+      const normal_need_L = w * 0.03;
+      const safe_pct = ((allowed_L_day / normal_need_L) * 100).toFixed(0);
+
+      document.getElementById("result").innerHTML = `
+        ✅ Your healthy daily water need: ${normal_need_L.toFixed(2)} L/day<br>
+        ⚠️ Safe to drink at current PFAS level: ${allowed_L_day.toFixed(2)} L/day<br>
+        🧪 That’s just ${safe_pct}% of what your body needs to stay healthy.
+      `;
+
       document.getElementById("explain").textContent =
-        `Allowed PFAS per day = ${allowed_ng_day.toFixed(1)} ng at ${c} ng/L in water.`;
+        `EFSA daily PFAS limit: ${allowed_ng_day.toFixed(1)} ng | Water PFAS: ${c} ng/L`;
     }
 
     document.getElementById("w").addEventListener("input", calc);
