@@ -11,6 +11,7 @@
       max-width: 700px;
       line-height: 1.5;
     }
+
     label { display: block; margin-top: 1rem; }
 
     .row {
@@ -58,7 +59,7 @@
       border-top: 1px solid #eee;
       border-bottom: 1px solid #eee;
       padding: 6px 0;
-      margin: 8px 0;
+      margin: 8px 0 24px;
       position: relative;
     }
 
@@ -80,32 +81,34 @@
       margin-right: 3rem;
     }
 
-    details {
-      background: #f9f9f9;
-      border: 1px solid #ccc;
+    .viewfinder {
+      background: #fff8cc;
+      border-left: 5px solid #f5c400;
       padding: 1rem;
-      margin-top: 1.5rem;
-      border-radius: 6px;
-    }
-
-    summary {
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .intro {
-      background: #ffffcc;
-      padding: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
       margin-bottom: 1.5rem;
+      font-size: 1rem;
+    }
+
+    .scrollbox {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      height: 300px;
+      overflow-y: auto;
+      background: #f9f9f9;
+      white-space: pre-wrap;
+      font-size: 0.95rem;
+    }
+
+    h2 {
+      margin-top: 2rem;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 0.5rem;
     }
   </style>
 </head>
 
 <body>
   <h1>PFAS Water-Intake Calculator</h1>
-  <p class="muted">EFSA TWI = 4.4 ng/kg/week.</p>
 
   <div class="ticker">
     <div class="ticker-text" id="ticker-text">
@@ -116,11 +119,8 @@
     </div>
   </div>
 
-  <div class="intro">
-    <strong>ABOUT THIS APP</strong><br><br>
-    This tool shows one thing with absolute clarity: when PFAS is in your drinking water, the dose you receive simply by staying alive can exceed the official safety limit — even before you eat a single mouthful of food.<br><br>
-    EFSA — the European Food Safety Authority — set a strict weekly safety limit for PFAS (4.4 ng per kg of body weight per week). They did this because PFAS suppresses children’s immune systems at blood levels already seen in Europe.<br><br>
-    Your water company, your government, and your postcode do not change human biology. The safe dose stays the same wherever you live. This app removes the confusion — showing one global calculation based on biology, not bureaucracy.
+  <div class="viewfinder">
+    This app shows that when PFAS is present in your drinking water, the dose you get simply by staying alive can exceed your immune-safe limit — even before eating any food. It uses the EFSA scientific safety standard: 4.4 ng per kg body weight per week. No spin. Just maths.
   </div>
 
   <label>Body weight</label>
@@ -144,15 +144,46 @@
     <button onclick="window.open('https://ko-fi.com/pfasapp','_blank')">❤️ Support us</button>
   </p>
 
-  <details>
-    <summary>📘 Full explanation – for those with a thirst for knowledge</summary>
-    <p style="margin-top:1rem;">
-      PFAS are industrial chemicals that stay in your blood for years. EFSA scientists found that children exposed to higher PFAS had weaker vaccine responses. From this, they defined a weekly safe dose — the Tolerable Weekly Intake (TWI): <strong>4.4 ng per kg body weight per week</strong>.<br><br>
-      This calculator uses your weight, your drinking water PFAS level, and average food exposure to show how much of your weekly PFAS budget is used. When water levels are high, even drinking normally can push you past this immune-safe limit.<br><br>
-      Governments use different PFAS limits based on cost, politics, or convenience. This app uses only one: the biological limit defined by EFSA.<br><br>
-      Share this tool. Let the numbers speak. The math does not lie.
-    </p>
-  </details>
+  <h2>About this App</h2>
+  <p><em>For those with a thirst for knowledge, read on:</em></p>
+
+  <div class="scrollbox">This tool shows one thing with absolute clarity:
+when PFAS is in your drinking water, the dose you receive simply by staying alive can exceed the official safety limit — even before you eat a single mouthful of food.
+
+EFSA — the European Food Safety Authority — set a strict weekly safety limit for PFAS (4.4 ng per kg of body-weight per week). They did this because PFAS suppresses children’s immune systems at blood levels already seen in Europe.
+
+Your water company, your government, and your postcode do not change human biology. The safe dose for your immune system stays the same wherever you travel. Yet the number that governments call “safe” changes across borders, time zones, and political circumstances. Your health does not.
+
+This app removes the confusion. It shows the same calculation everywhere on Earth, built directly from EFSA’s scientific method and formula. No spin. No politics. Just arithmetic.
+
+If you want the deeper explanation, the evidence, and the logic, read on.
+
+──────────────────────────────
+
+PFAS are industrial chemicals that accumulate in your blood for years. Once inside you, they stay. EFSA examined animal studies, human biomonitoring, and vaccine-response data in children. Their scientists found one critical effect: children exposed to higher PFAS had weaker antibody responses to vaccines. They traced this back using PBPK modelling and set a strict weekly limit — the Tolerable Weekly Intake (TWI). This limit is the scientific safe-dose.
+
+• EFSA TWI: 4.4 nanograms per kilogram of body weight per week
+• Based on immune suppression in children
+
+Everything in this app is built on that number.
+
+What this calculator does:
+1. Takes your body weight
+2. Calculates your weekly PFAS “budget” using EFSA’s formula
+3. Uses your water’s PFAS level
+4. Shows how much water you can drink before you exceed that dose
+
+The logic is simple:
+• If you exceed the EFSA limit, your immune system is under strain
+• If you do that every week, PFAS builds up in your blood
+• If you do that for years, you’re at chronic risk
+
+This app exposes that risk with clarity.
+
+No distractions. No spin. Just the numbers.
+
+Let them speak.
+  </div>
 
   <script>
     const TWI = 4.4;
