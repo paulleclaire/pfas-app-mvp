@@ -1,218 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>PFAS Water-Intake Calculator</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body {
-      font-family: system-ui, sans-serif;
-      margin: 2rem;
-      max-width: 700px;
-      line-height: 1.5;
-    }
-
-    label { display: block; margin-top: 1rem; }
-
-    .row {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-    }
-
-    input {
-      padding: 0.5rem;
-      width: 120px;
-      font-size: 1rem;
-    }
-
-    input[type=number]::-webkit-inner-spin-button {
-      opacity: 1;
-    }
-
-    .unit-btn {
-      padding: 0.5rem 1rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      background: #eee;
-      margin-right: 0.5rem;
-    }
-
-    .unit-btn.active {
-      background: #ffd700;
-      border-color: #999;
-    }
-
-    button {
-      background: #ffcc00;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 6px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .muted { color: #666; }
-    .output { margin-top: 1.5rem; }
-
-    .ticker {
-      overflow: hidden;
-      white-space: nowrap;
-      border-top: 1px solid #eee;
-      border-bottom: 1px solid #eee;
-      padding: 6px 0;
-      margin: 8px 0 24px;
-      position: relative;
-    }
-
-    .ticker-text {
-      display: inline-block;
-      padding-left: 100%;
-      animation: scroll 50s linear infinite;
-    }
-
-    @keyframes scroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-    }
-
-    .ticker a {
-      text-decoration: none;
-      color: #0055cc;
-      font-weight: bold;
-      margin-right: 3rem;
-    }
-
-    .viewfinder {
-      margin: 1rem 0;
-      font-size: 1rem;
-    }
-
-    .scrollbox {
-      border: 1px solid #ccc;
-      padding: 1rem;
-      height: 300px;
-      overflow-y: auto;
-      background: #f9f9f9;
-      white-space: pre-wrap;
-      font-size: 0.95rem;
-    }
-
-    h2 {
-      margin-top: 2rem;
-      border-bottom: 1px solid #ccc;
-      padding-bottom: 0.5rem;
-    }
-
-    .result-block {
-      margin-top: 1.5rem;
-      padding: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      background: #f1f1f1;
-    }
-
-    .result-line {
-      margin: 0.5rem 0;
-      font-weight: bold;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PFAS Calculator</title>
+<style>
+body{
+  font-family: system-ui, Arial, sans-serif;
+  margin: 2rem;
+  max-width: 600px;
+}
+h1{margin-bottom:1rem;font-size:1.6rem}
+label{display:block;margin-top:1rem}
+.row{display:flex;align-items:center;gap:0.75rem;flex-wrap:nowrap}
+input{
+  padding:0.5rem;
+  width:120px;
+  font-size:1rem;
+  -webkit-appearance: none;
+  appearance: none;
+}
+select{padding:0.5rem;font-size:1rem}
+button{
+  padding:0.6rem 1rem;
+  font-size:1rem;
+  margin-top:1rem;
+}
+.unit-btn{
+  padding:0.4rem 0.8rem;
+  border:1px solid #000;
+  cursor:pointer;
+  background:#f2f2f2;
+}
+.unit-btn.active{background:#000;color:#fff}
+.result-box{
+  margin-top:2rem;
+  padding:1rem;
+  border:1px solid #000;
+}
+</style>
 </head>
 
 <body>
-  <h1>PFAS Water-Intake Calculator</h1>
+<h1>PFAS Exposure Calculator</h1>
 
-  <p>Enter your body weight to see how much water you can safely drink per day, based on PFAS levels in your local drinking water.</p>
+<label>Adult or Child</label>
+<select id="ageType">
+  <option value="adult">Adult</option>
+  <option value="child">Child</option>
+</select>
 
-  <div class="ticker">
-    <div class="ticker-text" id="ticker-text">
-      <a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">Jersey PFAS levels reach 51 ng/L — well above EFSA's safe threshold.</a>
-      <a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">UK limit is 100 ng/L — EFSA allows 4.4 ng/kg/week total intake.</a>
-      <a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">Water Awareness Jersey calls for testing and transparency.</a>
-      <a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">PFAS is in global rainfall — yet public health remains silent.</a>
-    </div>
-  </div>
+<label>Weight</label>
+<div class="row">
+  <input id="weight" type="number" step="0.1" value="70">
+  <div class="unit-btn active" id="kgBtn">kg</div>
+  <div class="unit-btn" id="lbBtn">lb</div>
+</div>
 
-  <label>Body weight</label>
-  <div class="row">
-    <input id="w" type="number" step="0.1" value="70">
-    <div>
-      <span id="kgBtn" class="unit-btn active">kg</span>
-      <span id="lbBtn" class="unit-btn">lbs</span>
-    </div>
-  </div>
+<label>PFAS in water (ng/L)</label>
+<input id="pfas" type="number" step="0.1" value="51">
 
-  <label>PFAS in water (ng/L)</label>
-  <input id="c" type="number" step="0.1" value="51">
+<button onclick="calc()">Calculate</button>
 
-  <div class="result-block">
-    <div id="result"></div>
-    <div id="explain" class="muted"></div>
-  </div>
+<div id="results" class="result-box" style="display:none"></div>
 
-  <p>
-    <button onclick="window.open('https://ko-fi.com/pfasapp','_blank')">❤️ Support us</button>
-  </p>
+<script>
+let unit = "kg";
+document.getElementById("kgBtn").onclick = ()=>{unit="kg";kgBtn.classList.add("active");lbBtn.classList.remove("active");};
+document.getElementById("lbBtn").onclick = ()=>{unit="lb";lbBtn.classList.add("active");kgBtn.classList.remove("active");};
 
-  <h2>About this App</h2>
-  <div class="scrollbox">
-This app shows that when PFAS is present in your drinking water, the dose you get simply by drinking enough to stay alive, can exceed your immune-safe limit — even before eating any food.
+function calc(){
+  const ageType = document.getElementById("ageType").value;
+  let w = parseFloat(document.getElementById("weight").value);
+  const pfas = parseFloat(document.getElementById("pfas").value);
 
-Based upon the logic of a weekly dietary maximum tolerable intake, before you exceed the safe weekly limit, set out by the European Food Safety Authority. It uses the EFSA scientific safety standard: 4.4 ng per kg body weight per week. No spin. Just maths. 👨‍🔬 👩‍🔬 🧑‍🔬
+  if(unit==="lb"){ w = w * 0.453592; }
 
-The European Food Safety Authority (EFSA) is the agency of the European Union (EU) that provides independent scientific advice and communicates on existing and emerging risks associated with the food chain. EFSA was established in February 2002 in Parma, Italy. It had a yearly budget of €118.6 million, and a total staff of 542 as of 2021.
+  const mlPerKg = ageType==="adult" ? 30 : 35;
+  const dailyWaterLitres = (w * mlPerKg) / 1000;
 
-The work of EFSA covers all matters with a direct or indirect impact on food and feed safety, including animal health and welfare, plant protection and plant health and nutrition. EFSA supports the European Commission, the European Parliament and EU member states in taking effective and timely risk management decisions that ensure the protection of the health of European consumers and the safety of the food and feed chain. EFSA also communicates to the public in an open and transparent way on all matters within its remit.
+  const pfasIntakeNg = dailyWaterLitres * pfas;
 
-https://www.efsa.europa.eu/en
-  </div>
+  const twi = 4.4;
+  const weeklyAllow = w * twi;
+  const dailyAllow = weeklyAllow / 7;
 
-  <script>
-    const TWI = 4.4;
-    const LBS_TO_KG = 0.45359237;
-    let unit = "kg";
+  const percentOver = (pfasIntakeNg / dailyAllow) * 100;
 
-    function updateUnits(newUnit) {
-      unit = newUnit;
-      document.getElementById("kgBtn").classList.toggle("active", unit === "kg");
-      document.getElementById("lbBtn").classList.toggle("active", unit === "lb");
-      calc();
-    }
+  const shortfall = dailyAllow - pfasIntakeNg;
 
-    function calc() {
-      let w = parseFloat(document.getElementById("w").value) || 0;
-      if (unit === "lb") w *= LBS_TO_KG;
-      const c = parseFloat(document.getElementById("c").value) || 0;
-      if (!w || !c) {
-        document.getElementById("result").innerHTML = "";
-        document.getElementById("explain").textContent = "";
-        return;
-      }
-      const allowed_ng_day = (TWI * w) / 7;
-      const allowed_L_day = allowed_ng_day / c;
-      const normal_need_L = w * 0.03;
-      const safe_pct = ((allowed_L_day / normal_need_L) * 100).toFixed(0);
+  const r = document.getElementById("results");
+  r.style.display="block";
+  r.innerHTML =
+    "Daily hydration need: " + dailyWaterLitres.toFixed(2) + " L<br>" +
+    "PFAS intake from water: " + pfasIntakeNg.toFixed(1) + " ng/day<br>" +
+    "Daily EFSA allowance: " + dailyAllow.toFixed(1) + " ng<br>" +
+    "Shortfall vs allowance: " + shortfall.toFixed(1) + " ng<br>" +
+    "% over EFSA limit if fully hydrated: " + percentOver.toFixed(0) + "%";
+}
+</script>
 
-      document.getElementById("result").innerHTML = `
-        ✅ Your healthy daily water need: ${normal_need_L.toFixed(2)} L/day<br>
-        ⚠️ Safe to drink at current PFAS level: ${allowed_L_day.toFixed(2)} L/day<br>
-        🧪 That’s just ${safe_pct}% of what your body needs to stay healthy.
-      `;
-
-      document.getElementById("explain").textContent =
-        `EFSA daily PFAS limit: ${allowed_ng_day.toFixed(1)} ng | Water PFAS: ${c} ng/L`;
-    }
-
-    document.getElementById("w").addEventListener("input", calc);
-    document.getElementById("c").addEventListener("input", calc);
-    document.getElementById("kgBtn").addEventListener("click", () => updateUnits("kg"));
-    document.getElementById("lbBtn").addEventListener("click", () => updateUnits("lb"));
-
-    calc();
-  </script>
 </body>
 </html>
