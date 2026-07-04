@@ -92,10 +92,10 @@
 
   <div class="ticker">
     <div class="ticker-text" id="ticker-text">
-      <a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">Jersey PFAS levels reach 51 ng/L — well above EFSA's safe threshold.</a>
-      <a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">UK limit is 100 ng/L — EFSA allows 4.4 ng/kg/week in total intake.</a>
-      <a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">Water Awareness Jersey calls for testing and transparency.</a>
-      <a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">PFAS is in global rainfall — yet public health remains silent.</a>
+      <a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">PFAS in drinking water should be interpreted alongside total PFAS intake from all sources.</a>
+<a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">EFSA’s Tolerable Weekly Intake (TWI) for the sum of PFOS, PFOA, PFNA and PFHxS is 4.4 ng/kg/week. for the sum of PFOS, PFOA, PFNA and PFHxS from all sources.</a>
+<a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">The UK 100 ng/L figure is a Tier 3 action level for the sum of 20 PFAS, not a health-based safe limit.</a>
+<a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">Water Awareness Jersey calls for testing, filtration and transparent public reporting.</a>
     </div>
   </div>
 
@@ -197,7 +197,7 @@ function calc() {
   const safeLitres = safeDose / c;
   const shortfall = hydrationNeed - safeLitres;
   const percentShort = hydrationNeed ? Math.round(100 * shortfall / hydrationNeed) : 0;
-  const percentOver = hydrationNeed ? Math.round((hydrationNeed * c) / safeDose * 100) : 0;
+  const percentOfLimit = hydrationNeed ? Math.round((hydrationNeed * c) / safeDose * 100) : 0;
 
   const html = `
     Results for ${ageGroup === "child" ? "child" : "adult"} (${w.toFixed(0)} kg, PFAS: ${c} ng/L):<br><br>
@@ -205,7 +205,7 @@ function calc() {
     ⚠️ <strong>Safe to drink:</strong> ${safeLitres.toFixed(2)} L/day<br><br>
     💧 <strong>Healthy hydration need:</strong> ${hydrationNeed.toFixed(2)} L/day<br><br>
     📉 <strong>Shortfall:</strong> ${shortfall.toFixed(2)} L/day (${percentShort}% less than needed)<br><br>
-    🚨 <strong>If you drink enough to stay hydrated:</strong> ${percentOver}% over the EFSA immune-safe limit
+    🚨 <strong>If you drink enough to stay hydrated:</strong> ${percentOfLimit}% of the EFSA weekly intake limit
   `;
 
   document.getElementById("result").innerHTML = html.trim();
