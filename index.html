@@ -101,6 +101,13 @@
     .calc-details td { padding: 4px 0; }
     .calc-details td.v { text-align: right; }
     .calc-note { font-size: 0.8rem; color: #666; margin-top: 0.6rem; line-height: 1.5; }
+    .helper { font-size: 0.85rem; color: #555; line-height: 1.5; margin: 0.4rem 0; }
+    .helper-list { font-size: 0.85rem; color: #555; margin: 0.2rem 0 0.5rem 1.2rem; padding: 0; }
+    .helper-list li { margin: 0.1rem 0; }
+    .units-label { font-size: 0.9rem; color: #555; margin-left: 0.5rem; }
+    .examples { background: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 0.6rem 0.9rem; margin: 0.75rem 0; font-size: 0.9rem; }
+    .examples ul { margin: 0.3rem 0 0 1.2rem; padding: 0; }
+    .examples li { margin: 0.2rem 0; }
   </style>
 </head>
 <body>
@@ -115,29 +122,49 @@
     </div>
   </div>
 
-  <label>Body weight</label>
-  <div class="row">
-    <input id="w" type="number" step="0.1" value="70">
-    <div class="unit-toggle">
-      <span id="kgBtn" class="unit-btn active">kg</span>
-      <span id="lbBtn" class="unit-btn">lbs</span>
-    </div>
-  </div>
-
   <label>Age group</label>
   <div class="unit-toggle">
     <span id="adultBtn" class="unit-btn active">Adult</span>
     <span id="childBtn" class="unit-btn">Child</span>
   </div>
 
-  <label>PFAS in water (ng/L)</label>
-  <input id="c" type="number" step="0.1" value="51">
+  <label>PFAS group used for this calculation</label>
+  <div class="unit-toggle">
+    <span class="unit-btn active" style="cursor:default;">✓ EFSA Sum of 4 (PFOS + PFOA + PFHxS + PFNA)</span>
+  </div>
+  <p class="helper">This Version 1 calculator is based on the four PFAS used in the European Food Safety Authority (EFSA) Tolerable Weekly Intake.</p>
+
+  <label>PFAS concentration in your drinking water</label>
+  <div>
+    <input id="c" type="number" step="0.1" value="51"><span class="units-label">ng/L (ppt)</span>
+  </div>
+  <p class="helper">Enter the combined concentration of these four PFAS:</p>
+  <ul class="helper-list">
+    <li>PFOS</li>
+    <li>PFOA</li>
+    <li>PFHxS</li>
+    <li>PFNA</li>
+  </ul>
+  <p class="helper">If your laboratory reports them separately, add the four values together. If your water supplier already reports the sum of these four PFAS, simply enter that number. Do not enter a 'Total PFAS' value or a different PFAS group unless it specifically states it is the sum of PFOS + PFOA + PFHxS + PFNA.</p>
+  <p class="helper">For drinking water, 1 ng/L is exactly the same as 1 part per trillion (1 ppt), so no conversion is required.</p>
+
+  <div class="examples">
+    <strong>Examples</strong>
+    <ul>
+      <li>Jersey Water average (2025): 12 ng/L (12 ppt)</li>
+      <li>Jersey Independent Scientific Advisory Panel recommendation: 4 ng/L (4 ppt)</li>
+    </ul>
+  </div>
 
   <p class="result-question">How much of your EFSA Tolerable Weekly Intake (TWI) would come from drinking water?</p>
 
   <div class="output">
     <div id="result"></div>
   </div>
+
+  <p style="font-size:0.85rem; color:#666; margin-top:0.5rem;">Based on typical daily water intake for the selected age group.</p>
+
+  <div id="compare"></div>
 
   <div class="note-water">This percentage represents PFAS from drinking water only. Food, dust and other sources are not included.</div>
 
@@ -149,6 +176,7 @@
     <summary>How this calculation works</summary>
     <div id="calcDetails"></div>
     <p class="calc-note">All figures are the sum of PFOS, PFOA, PFNA and PFHxS. Recommended water intake is a hydration reference (30 mL per kg for adults, 35 mL per kg for children), not a limit.</p>
+    <p class="calc-note">Version 1 estimates drinking-water contribution using typical intake assumptions for adults and children. It does not model pregnancy, fetal exposure, breastfeeding, organ development, long-term PFAS accumulation or individual body burden. Those are planned for a future PFAS Exposure Explorer Version 2.</p>
   </details>
 
   <p>
@@ -167,7 +195,7 @@ PFAS are industrial chemicals that accumulate in your blood for years. Once insi
 Everything in this app is built on that number.
 
 What this calculator does:
-1. Takes your body weight
+1. Uses typical daily water intake for your age group
 2. Calculates your weekly PFAS “budget” using EFSA’s formula
 3. Uses your water’s PFAS level
 4. Shows how much water you can drink before you exceed that dose
@@ -186,16 +214,7 @@ Let them speak.
 
 <script>
 const TWI = 4.4;
-const LBS_TO_KG = 0.45359237;
-let unit = "kg";
 let ageGroup = "adult";
-
-function updateUnits(newUnit) {
-  unit = newUnit;
-  document.getElementById("kgBtn").classList.toggle("active", unit === "kg");
-  document.getElementById("lbBtn").classList.toggle("active", unit === "lb");
-  calc();
-}
 
 document.getElementById("adultBtn").addEventListener("click", () => {
   ageGroup = "adult";
@@ -212,21 +231,19 @@ document.getElementById("childBtn").addEventListener("click", () => {
 });
 
 function calc() {
-  let w = parseFloat(document.getElementById("w").value) || 0;
-  if (unit === "lb") w *= LBS_TO_KG;
   const c = parseFloat(document.getElementById("c").value) || 0;
-  if (!w || !c) {
+  if (!c) {
     document.getElementById("result").innerHTML = "";
     document.getElementById("calcDetails").innerHTML = "";
+    document.getElementById("compare").innerHTML = "";
     return;
   }
 
-  const hydrationNeed = w * (ageGroup === "child" ? 0.035 : 0.03);
-  const safeDose = (TWI * w) / 7;
-  const safeLitres = safeDose / c;
-  const shortfall = hydrationNeed - safeLitres;
-  const percentShort = hydrationNeed ? Math.round(100 * shortfall / hydrationNeed) : 0;
-  const percentOfLimit = hydrationNeed ? Math.round((hydrationNeed * c) / safeDose * 100) : 0;
+  // Body weight cancels out of the percentage, so it is computed per kg.
+  const factor = ageGroup === "child" ? 0.035 : 0.03;   // L per kg per day
+  const weeklyWaterPerKg = factor * 7;                   // L per kg per week
+  const weeklyPfasPerKg = weeklyWaterPerKg * c;          // ng per kg per week
+  const percentOfLimit = Math.round(weeklyPfasPerKg / TWI * 100);
 
   let bar;
   if (percentOfLimit <= 100) {
@@ -247,25 +264,23 @@ function calc() {
   document.getElementById("result").innerHTML =
     `<div class="result-percent">${percentOfLimit}%<small>of your EFSA TWI</small></div>${bar}`;
 
-  const weeklyTWI = TWI * w;
-  const weeklyWaterL = hydrationNeed * 7;
-  const weeklyWaterPfas = weeklyWaterL * c;
+  document.getElementById("compare").innerHTML = c > 4
+    ? `<div style="background:#f1f7fd; border:1px solid #e8edf2; border-radius:10px; padding:0.7rem 0.9rem; font-size:0.9rem; color:#333; margin-top:0.75rem;">At the Advisory Panel's recommended level of 4 ng/L (4 ppt) this would be approximately 19% for an adult (22% for a child).</div>`
+    : "";
+
+  const mlPerKg = ageGroup === "child" ? 35 : 30;
   document.getElementById("calcDetails").innerHTML = `
     <table>
       <tr><td>EFSA Tolerable Weekly Intake (TWI)</td><td class="v">4.4 ng per kg per week</td></tr>
-      <tr><td>Your body weight</td><td class="v">${w.toFixed(0)} kg</td></tr>
-      <tr><td>Your weekly TWI amount</td><td class="v">4.4 &times; ${w.toFixed(0)} = ${weeklyTWI.toFixed(0)} ng / week</td></tr>
-      <tr><td>Recommended water intake used</td><td class="v">${hydrationNeed.toFixed(1)} L / day (${weeklyWaterL.toFixed(1)} L / week)</td></tr>
-      <tr><td>PFAS level in water</td><td class="v">${c} ng/L</td></tr>
-      <tr><td>PFAS from water</td><td class="v">${weeklyWaterL.toFixed(1)} &times; ${c} = ${weeklyWaterPfas.toFixed(0)} ng / week</td></tr>
-      <tr><td>Share of your TWI</td><td class="v">${weeklyWaterPfas.toFixed(0)} &divide; ${weeklyTWI.toFixed(0)} = ${percentOfLimit}%</td></tr>
+      <tr><td>Typical water intake (${ageGroup})</td><td class="v">${mlPerKg} mL per kg per day</td></tr>
+      <tr><td>Weekly water intake</td><td class="v">${weeklyWaterPerKg.toFixed(2)} L per kg per week</td></tr>
+      <tr><td>PFAS level in water</td><td class="v">${c} ng/L (${c} ppt)</td></tr>
+      <tr><td>PFAS from water</td><td class="v">${weeklyWaterPerKg.toFixed(2)} &times; ${c} = ${weeklyPfasPerKg.toFixed(2)} ng per kg per week</td></tr>
+      <tr><td>Share of your TWI</td><td class="v">${weeklyPfasPerKg.toFixed(2)} &divide; 4.4 = ${percentOfLimit}%</td></tr>
     </table>`;
 }
 
-document.getElementById("w").addEventListener("input", calc);
 document.getElementById("c").addEventListener("input", calc);
-document.getElementById("kgBtn").addEventListener("click", () => updateUnits("kg"));
-document.getElementById("lbBtn").addEventListener("click", () => updateUnits("lb"));
 
 calc();
 </script>
