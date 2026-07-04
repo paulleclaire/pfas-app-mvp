@@ -110,6 +110,12 @@
     .examples { background: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 0.6rem 0.9rem; margin: 0.75rem 0; font-size: 0.9rem; }
     .examples ul { margin: 0.3rem 0 0 1.2rem; padding: 0; }
     .examples li { margin: 0.2rem 0; }
+    .rsc-tag { display:inline-block; font-size:0.8rem; color:#33546b; background:#eef4fb; border:1px solid #d6e3f0; border-radius:20px; padding:2px 10px; margin:0.5rem 0; }
+    .rsc-text { font-size:0.9rem; color:#333; line-height:1.55; margin:0.5rem 0; }
+    .rsc-split { display:flex; height:36px; border-radius:8px; overflow:hidden; margin:0.75rem 0 0.5rem; font-size:0.8rem; }
+    .rsc-split > div { display:flex; align-items:center; justify-content:center; text-align:center; padding:0 6px; line-height:1.2; }
+    .rsc-water { background:#1976D2; color:#fff; }
+    .rsc-other { background:#EEF2F6; color:#33546b; }
   </style>
 </head>
 <body>
@@ -181,6 +187,21 @@
     <div id="calcDetails"></div>
     <p class="calc-note">All figures are the sum of PFOS, PFOA, PFNA and PFHxS. Recommended water intake is a hydration reference (30 mL per kg for adults, 35 mL per kg for children), not a limit.</p>
     <p class="calc-note">Version 1 estimates drinking-water contribution using typical intake assumptions for adults and children. It does not model pregnancy, fetal exposure, breastfeeding, organ development, long-term PFAS accumulation or individual body burden. Those are planned for a future PFAS Exposure Explorer Version 2.</p>
+  </details>
+
+  <details class="calc-details">
+    <summary>Why drinking-water limits are lower than the EFSA weekly limit</summary>
+    <p class="rsc-tag">Regulatory methodology — not EFSA</p>
+    <p class="rsc-text">EFSA's Tolerable Weekly Intake is a limit for total PFAS exposure from all sources.</p>
+    <p class="rsc-text">When regulators turn that total-exposure limit into a drinking-water limit, they usually reserve only part of the total intake for water, because food, dust and other sources also contribute. This is called Relative Source Contribution (RSC).</p>
+    <p class="rsc-text">The Jersey Panel's Fourth Report explains that WHO guidance now uses a default drinking-water allocation of 20%, and that the US EPA also uses 20%. The report also notes that Sweden used a 20% allocation with the EFSA intake value to derive a 4 ng/L PFAS-4 drinking-water limit.</p>
+    <p class="rsc-text">In simple terms: the full EFSA weekly limit is not normally allocated to drinking water alone. A drinking-water standard is usually set lower so there is room for exposure from food and other sources.</p>
+    <div class="rsc-split">
+      <div class="rsc-water" style="width:20%;">20% drinking water</div>
+      <div class="rsc-other" style="width:80%;">80% food, dust and other sources</div>
+    </div>
+    <p class="calc-note">This does not change your estimate above. Your estimate still shows how much of EFSA's total weekly intake would come from drinking water at the concentration you entered.</p>
+    <p class="calc-note">Source: Independent PFAS Scientific Advisory Panel for Jersey, Draft Fourth Report, pages 92–93.</p>
   </details>
 
   <p>
