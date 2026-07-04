@@ -93,7 +93,7 @@
   <div class="ticker">
     <div class="ticker-text" id="ticker-text">
       <a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">PFAS in drinking water should be interpreted alongside total PFAS intake from all sources.</a>
-<a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">EFSA’s Tolerable Weekly Intake (TWI) for the sum of PFOS, PFOA, PFNA and PFHxS is 4.4 ng/kg/week. for the sum of PFOS, PFOA, PFNA and PFHxS from all sources.</a>
+<a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">EFSA’s Tolerable Weekly Intake (TWI) for the sum of PFOS, PFOA, PFNA and PFHxS is 4.4 ng/kg/week from all sources.</a>
 <a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">The UK 100 ng/L figure is a Tier 3 action level for the sum of 20 PFAS, not a health-based safe limit.</a>
 <a href="https://www.facebook.com/WaterAwarenessJersey/" target="_blank">Water Awareness Jersey calls for testing, filtration and transparent public reporting.</a>
     </div>
@@ -121,6 +121,8 @@
     <div id="result"></div>
     <small id="explain" class="muted"></small>
   </div>
+
+  <p class="muted" style="font-size:0.9rem;">This calculator estimates PFAS exposure from drinking water only. PFAS from food, dust and other sources are not included, so your total weekly exposure may be higher.</p>
 
   <p>
     <button onclick="window.open('https://ko-fi.com/pfasapp','_blank')">❤️ Support us</button>
@@ -219,8 +221,7 @@ document.getElementById("lbBtn").addEventListener("click", () => updateUnits("lb
 
 calc();
 </script>
-
-<p style="text-align:center; margin-top:2rem;">
+  <p style="text-align:center; margin-top:2rem;">
   <a href="docs/disclaimer.html" style="color:#666; font-size:0.85rem;">Medical disclaimer</a><br>
   <a href="mailto:waterawarenessjersey@gmail.com" style="color:#666; font-size:0.85rem;">Contact: waterawarenessjersey@gmail.com</a><br>
   <a href="https://www.facebook.com/waterawarenessjersey" style="color:#666; font-size:0.85rem;" target="_blank">Facebook: Water Awareness Jersey</a>
@@ -229,6 +230,5 @@ calc();
 <p style="font-size:0.85rem; color:#666; margin-top:1rem;">
   <strong>Note:</strong> This app uses ng/L (nanograms per litre), the standard unit in Europe. In the USA, this is often referred to as ppt (parts per trillion). 1 ng/L = 1 ppt.
 </p>
-
 </body>
 </html>
