@@ -85,6 +85,22 @@
       border-bottom: 1px solid #ccc;
       padding-bottom: 0.5rem;
     }
+    .result-question { font-size: 1.15rem; font-weight: bold; margin: 1.75rem 0 0.5rem; line-height: 1.4; }
+    .result-percent { font-size: 2.4rem; font-weight: bold; line-height: 1; }
+    .result-percent small { font-size: 1rem; font-weight: normal; color: #666; margin-left: 0.4rem; }
+    .bar { position: relative; height: 22px; background: #f1f1f1; border: 1px solid #ddd; border-radius: 6px; overflow: hidden; margin-top: 0.75rem; }
+    .bar-fill { position: absolute; left: 0; top: 0; height: 100%; background: #888; }
+    .bar-over { position: absolute; top: 0; height: 100%; background: #ccc; }
+    .bar-marker { position: absolute; top: -3px; height: 28px; width: 2px; background: #333; }
+    .bar-labels { display: flex; justify-content: space-between; font-size: 0.75rem; color: #666; margin-top: 4px; }
+    .note-water { background: #eef4fb; color: #184a86; border-radius: 6px; padding: 0.7rem 0.9rem; margin: 1rem 0 0.75rem; font-size: 0.9rem; }
+    .twi-line, .hydration-line { font-size: 0.9rem; color: #555; margin: 0 0 0.75rem; }
+    .calc-details { margin-top: 1rem; border-top: 1px solid #eee; padding-top: 0.75rem; }
+    .calc-details summary { font-weight: bold; cursor: pointer; }
+    .calc-details table { width: 100%; font-size: 0.9rem; border-collapse: collapse; margin-top: 0.75rem; }
+    .calc-details td { padding: 4px 0; }
+    .calc-details td.v { text-align: right; }
+    .calc-note { font-size: 0.8rem; color: #666; margin-top: 0.6rem; line-height: 1.5; }
   </style>
 </head>
 <body>
@@ -117,12 +133,23 @@
   <label>PFAS in water (ng/L)</label>
   <input id="c" type="number" step="0.1" value="51">
 
+  <p class="result-question">How much of your EFSA Tolerable Weekly Intake (TWI) would come from drinking water?</p>
+
   <div class="output">
     <div id="result"></div>
-    <small id="explain" class="muted"></small>
   </div>
 
-  <p class="muted" style="font-size:0.9rem;">This calculator estimates PFAS exposure from drinking water only. PFAS from food, dust and other sources are not included, so your total weekly exposure may be higher.</p>
+  <div class="note-water">This percentage represents PFAS from drinking water only. Food, dust and other sources are not included.</div>
+
+  <p class="twi-line">EFSA Tolerable Weekly Intake (TWI): you can think of this as a weekly intake limit. <a href="https://www.efsa.europa.eu/en/news/pfas-food-efsa-assesses-risks-and-sets-tolerable-intake" target="_blank" rel="noopener">Read EFSA's official explanation</a>.</p>
+
+  <p class="hydration-line">Keep drinking enough water to stay healthy. If your water contains PFAS, the solution is to reduce PFAS exposure, not reduce hydration.</p>
+
+  <details class="calc-details">
+    <summary>How this calculation works</summary>
+    <div id="calcDetails"></div>
+    <p class="calc-note">All figures are the sum of PFOS, PFOA, PFNA and PFHxS. Recommended water intake is a hydration reference (30 mL per kg for adults, 35 mL per kg for children), not a limit.</p>
+  </details>
 
   <p>
     <button onclick="window.open('https://ko-fi.com/pfasapp','_blank')">❤️ Support us</button>
@@ -189,8 +216,8 @@ function calc() {
   if (unit === "lb") w *= LBS_TO_KG;
   const c = parseFloat(document.getElementById("c").value) || 0;
   if (!w || !c) {
-    document.getElementById("result").textContent = "";
-    document.getElementById("explain").textContent = "";
+    document.getElementById("result").innerHTML = "";
+    document.getElementById("calcDetails").innerHTML = "";
     return;
   }
 
@@ -201,17 +228,38 @@ function calc() {
   const percentShort = hydrationNeed ? Math.round(100 * shortfall / hydrationNeed) : 0;
   const percentOfLimit = hydrationNeed ? Math.round((hydrationNeed * c) / safeDose * 100) : 0;
 
-  const html = `
-    Results for ${ageGroup === "child" ? "child" : "adult"} (${w.toFixed(0)} kg, PFAS: ${c} ng/L):<br><br>
-    ✅ <strong>EFSA safe PFAS dose:</strong> ${safeDose.toFixed(2)} ng/day<br><br>
-    ⚠️ <strong>Safe to drink:</strong> ${safeLitres.toFixed(2)} L/day<br><br>
-    💧 <strong>Healthy hydration need:</strong> ${hydrationNeed.toFixed(2)} L/day<br><br>
-    📉 <strong>Shortfall:</strong> ${shortfall.toFixed(2)} L/day (${percentShort}% less than needed)<br><br>
-    🚨 <strong>If you drink enough to stay hydrated:</strong> ${percentOfLimit}% of the EFSA weekly intake limit
-  `;
+  let bar;
+  if (percentOfLimit <= 100) {
+    bar = `
+      <div class="bar"><div class="bar-fill" style="width:${percentOfLimit}%;"></div></div>
+      <div class="bar-labels"><span>0%</span><span>100% = one week's TWI</span></div>`;
+  } else {
+    const markerPos = 100 / percentOfLimit * 100;
+    bar = `
+      <div class="bar">
+        <div class="bar-fill" style="width:${markerPos}%;"></div>
+        <div class="bar-over" style="left:${markerPos}%; width:${100 - markerPos}%;"></div>
+        <div class="bar-marker" style="left:${markerPos}%;"></div>
+      </div>
+      <div class="bar-labels"><span>0%</span><span>100% = one week's TWI</span><span>${percentOfLimit}%</span></div>`;
+  }
 
-  document.getElementById("result").innerHTML = html.trim();
-  document.getElementById("explain").textContent = "";
+  document.getElementById("result").innerHTML =
+    `<div class="result-percent">${percentOfLimit}%<small>of your EFSA TWI</small></div>${bar}`;
+
+  const weeklyTWI = TWI * w;
+  const weeklyWaterL = hydrationNeed * 7;
+  const weeklyWaterPfas = weeklyWaterL * c;
+  document.getElementById("calcDetails").innerHTML = `
+    <table>
+      <tr><td>EFSA Tolerable Weekly Intake (TWI)</td><td class="v">4.4 ng per kg per week</td></tr>
+      <tr><td>Your body weight</td><td class="v">${w.toFixed(0)} kg</td></tr>
+      <tr><td>Your weekly TWI amount</td><td class="v">4.4 &times; ${w.toFixed(0)} = ${weeklyTWI.toFixed(0)} ng / week</td></tr>
+      <tr><td>Recommended water intake used</td><td class="v">${hydrationNeed.toFixed(1)} L / day (${weeklyWaterL.toFixed(1)} L / week)</td></tr>
+      <tr><td>PFAS level in water</td><td class="v">${c} ng/L</td></tr>
+      <tr><td>PFAS from water</td><td class="v">${weeklyWaterL.toFixed(1)} &times; ${c} = ${weeklyWaterPfas.toFixed(0)} ng / week</td></tr>
+      <tr><td>Share of your TWI</td><td class="v">${weeklyWaterPfas.toFixed(0)} &divide; ${weeklyTWI.toFixed(0)} = ${percentOfLimit}%</td></tr>
+    </table>`;
 }
 
 document.getElementById("w").addEventListener("input", calc);
