@@ -129,6 +129,9 @@
     .src-intro { font-size:0.8rem; color:#666; line-height:1.5; margin:0.4rem 0 0.75rem; }
     .ref { font-size:0.9rem; color:#333; line-height:1.55; margin:0.4rem 0 0.75rem; padding-left:1.6rem; text-indent:-1.6rem; }
     .ref-n { font-weight:bold; margin-right:0.3rem; }
+    .timeline { margin:0.75rem 0 0.25rem; }
+    .timeline .tl-node { background:#f1f7fd; border:1px solid #d6e3f0; border-radius:8px; padding:0.5rem 0.75rem; font-size:0.85rem; color:#33546b; text-align:center; }
+    .timeline .tl-arrow { text-align:center; color:#1976D2; font-size:1.1rem; line-height:1.4; }
   </style>
 </head>
 <body>
@@ -155,6 +158,31 @@
     <span class="unit-btn active" style="cursor:default;">✓ EFSA Sum of 4 (PFOS + PFOA + PFHxS + PFNA)</span>
   </div>
   <p class="helper">This Version 1 calculator is based on the four PFAS used in the European Food Safety Authority (EFSA) Tolerable Weekly Intake.</p>
+
+  <details class="calc-details">
+    <summary>Why these four PFAS?</summary>
+    <p class="rsc-text">There are thousands of PFAS chemicals. This calculator does not attempt to measure every PFAS. Instead, it follows the approach adopted by the European Food Safety Authority (EFSA) and recommended by Jersey's Independent PFAS Scientific Advisory Panel.</p>
+    <p class="rsc-text">The four PFAS are:</p>
+    <ul class="helper-list">
+      <li>PFOS — Perfluorooctane Sulfonic Acid</li>
+      <li>PFOA — Perfluorooctanoic Acid</li>
+      <li>PFHxS — Perfluorohexane Sulfonic Acid</li>
+      <li>PFNA — Perfluorononanoic Acid</li>
+    </ul>
+    <p class="rsc-text"><strong>Why only these four?</strong></p>
+    <p class="rsc-text">When EFSA carried out its major health assessment in 2020, these were the four PFAS for which the strongest human scientific evidence existed. They were selected because they:</p>
+    <ul class="helper-list">
+      <li>are persistent in the environment;</li>
+      <li>accumulate in the human body;</li>
+      <li>are commonly detected in people around the world; and</li>
+      <li>had sufficient high-quality scientific evidence for EFSA to establish a health-based Tolerable Weekly Intake (TWI).</li>
+    </ul>
+    <p class="rsc-text">For those reasons, EFSA based its health guidance on the combined exposure to these four PFAS.</p>
+    <p class="rsc-text">The Jersey Independent PFAS Scientific Advisory Panel recommended using the same simple Sum of 4 approach because it is scientifically robust, transparent and internationally recognised.</p>
+    <p class="rsc-text"><strong>Why is PFNA included?</strong></p>
+    <p class="rsc-text">PFNA is often found at lower concentrations than PFOS or PFOA, but scientific evidence shows it is biologically important. Some international regulatory systems consider PFNA relatively more potent when using Relative Potency Factor (RPF) methods.</p>
+    <p class="rsc-text">This Version 1 calculator does not use Relative Potency Factors. It follows the simple Sum of 4 approach recommended by Jersey's Independent PFAS Scientific Advisory Panel.</p>
+  </details>
 
   <label>PFAS concentration in your drinking water</label>
   <p class="conc-cta">Enter your PFAS result here</p>
@@ -211,6 +239,40 @@
   </details>
 
   <details class="calc-details">
+    <summary>Why are there two different numbers: 4 ng/L and 10 ng/L?</summary>
+    <p class="rsc-text">These two numbers have completely different purposes.</p>
+    <p class="rsc-text"><strong>4 ng/L</strong></p>
+    <p class="rsc-text">This is the Independent PFAS Scientific Advisory Panel's recommended enforceable drinking-water standard. It applies only to the simple Sum of four PFAS:</p>
+    <ul class="helper-list">
+      <li>PFOS</li>
+      <li>PFOA</li>
+      <li>PFHxS</li>
+      <li>PFNA</li>
+    </ul>
+    <p class="rsc-text"><strong>10 ng/L</strong></p>
+    <p class="rsc-text">This is NOT the recommended drinking-water standard. Instead, it is a guidance value for the average Sum of 48 measurable PFAS.</p>
+    <p class="rsc-text">If routine monitoring of the Sum of 48 PFAS reaches or exceeds 10 ng/L, the Panel recommends that this should trigger further investigation. It is an investigation trigger, not a replacement for the 4 ng/L drinking-water standard.</p>
+  </details>
+
+  <details class="calc-details">
+    <summary>Implementation timetable</summary>
+    <p class="rsc-text">The Draft Fourth Scientific Report – Drinking Water, published in July 2026, recognised that new PFAS treatment systems cannot be installed overnight.</p>
+    <p class="rsc-text">After reviewing international experience together with Jersey's practical constraints, the Independent PFAS Scientific Advisory Panel recommended that drinking water should achieve the 4 ng/L standard:</p>
+    <p class="rsc-text"><em>"As soon as is reasonably practicable, ideally within five years."</em></p>
+    <p class="rsc-text">The Panel noted that some well-resourced programmes elsewhere may achieve implementation in around three years. However, Jersey may require longer because treatment technology must be selected, pilot tested, designed, procured, constructed and integrated into Jersey's water treatment system.</p>
+    <p class="rsc-text">This recommendation does not mean waiting five years before taking action. It means beginning work immediately and achieving the 4 ng/L standard as quickly as reasonably practicable.</p>
+    <div class="timeline">
+      <div class="tl-node"><strong>July 2026</strong><br>Draft Fourth Scientific Report published</div>
+      <div class="tl-arrow">↓</div>
+      <div class="tl-node"><strong>Implementation begins</strong></div>
+      <div class="tl-arrow">↓</div>
+      <div class="tl-node">Planning<br>Pilot testing<br>Engineering design<br>Procurement<br>Construction</div>
+      <div class="tl-arrow">↓</div>
+      <div class="tl-node"><strong>Target</strong><br>Achieve 4 ng/L<br>As soon as reasonably practicable<br>Ideally within five years</div>
+    </div>
+  </details>
+
+  <details class="calc-details">
     <summary>Why are drinking-water limits lower than the EFSA weekly limit?</summary>
     <p class="rsc-tag">Regulatory methodology — not EFSA</p>
     <p class="rsc-text">EFSA's Tolerable Weekly Intake is a limit for total PFAS exposure from all sources.</p>
@@ -238,7 +300,7 @@
     <p class="ref"><span class="ref-n">[1]</span>European Food Safety Authority (EFSA).<br><em>Risk to human health related to the presence of perfluoroalkyl substances in food.</em><br>EFSA Journal, 2020.<br>Tolerable Weekly Intake (TWI): 4.4 ng/kg body weight/week for the Sum of 4 PFAS (PFOA, PFOS, PFHxS and PFNA).</p>
     <p class="rsc-text"><strong>Jersey</strong></p>
     <p class="ref"><span class="ref-n">[2]</span>Jersey Water.<br><em>Water Quality Report 2025.</em><br>Average Sum of 4 PFAS in treated drinking water: 12 ng/L.<br>Average Sum of 48 PFAS: 31 ng/L.</p>
-    <p class="ref"><span class="ref-n">[3]</span>Independent PFAS Scientific Advisory Panel for Jersey.<br>Panel members: Dr Steve Hajioff, Professor Ian Cousins and Dr Tony Fletcher.<br><em>Draft Fourth Scientific Report – Drinking Water (2025).</em><br>Final recommendation: 4 ng/L for the Sum of 4 PFAS in drinking water.<br>Relevant discussion on Relative Source Contribution (RSC): pages 92–93.<br>Government of Jersey, Independent PFAS Scientific Advisory Panel.</p>
+    <p class="ref"><span class="ref-n">[3]</span>Independent PFAS Scientific Advisory Panel for Jersey<br>Panel members:<br>Dr Steve Hajioff<br>Professor Ian Cousins<br>Dr Tony Fletcher<br><em>Draft Fourth Scientific Report – Drinking Water</em> (July 2026)<br>Final recommendations:<br>• Adopt an enforceable drinking-water standard of 4 ng/L for the simple Sum of 4 PFAS.<br>• Monitor the average Sum of 48 measurable PFAS.<br>• Use 10 ng/L for the Sum of 48 PFAS as a guidance value to trigger further investigation.<br>• Achieve 4 ng/L as soon as reasonably practicable, ideally within five years.<br>Government of Jersey<br>Independent PFAS Scientific Advisory Panel</p>
     <p class="rsc-text"><strong>Important</strong></p>
     <p class="calc-note">This calculator estimates PFAS exposure from drinking water only. Total PFAS exposure also comes from food, consumer products and other environmental sources.</p>
   </details>
