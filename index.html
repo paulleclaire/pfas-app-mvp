@@ -118,6 +118,10 @@
     .examples { background: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 0.6rem 0.9rem; margin: 0.75rem 0; font-size: 0.9rem; }
     .examples ul { margin: 0.3rem 0 0 1.2rem; padding: 0; }
     .examples li { margin: 0.2rem 0; }
+    .worked-example { background: #f4f4f4; border: 1px solid #e2e2e2; border-radius: 8px; padding: 0.75rem 1rem; margin: 0.5rem 0 1rem; font-size: 0.9rem; }
+    .worked-example > strong { display: block; margin-bottom: 0.5rem; }
+    .worked-example .we-row { display: flex; justify-content: space-between; gap: 1rem; padding: 0.15rem 0; color: #444; }
+    .worked-example .we-total { display: flex; justify-content: space-between; gap: 1rem; padding: 0.4rem 0 0; margin-top: 0.4rem; border-top: 1px solid #d5d5d5; font-weight: bold; font-size: 1.05rem; }
     .rsc-tag { display:inline-block; font-size:0.8rem; color:#33546b; background:#eef4fb; border:1px solid #d6e3f0; border-radius:20px; padding:2px 10px; margin:0.5rem 0; }
     .rsc-text { font-size:0.9rem; color:#333; line-height:1.55; margin:0.5rem 0; }
     .rsc-alloc { margin:0.75rem 0 0.5rem; }
@@ -184,9 +188,18 @@
     <p class="rsc-text">This Version 1 calculator does not use Relative Potency Factors. It follows the simple Sum of 4 approach recommended by Jersey's Independent PFAS Scientific Advisory Panel.</p>
   </details>
 
-  <label>PFAS concentration in your drinking water</label>
-  <p class="conc-cta">Enter your PFAS result here</p>
-  <p class="conc-sub">Type the Sum of 4 PFAS concentration from your drinking-water report.</p>
+  <p class="conc-cta">Enter your Sum of 4 PFAS result</p>
+  <p class="conc-sub">If your laboratory report lists PFOS, PFOA, PFHxS and PFNA separately, simply add those four values together and enter the total below.</p>
+
+  <div class="worked-example">
+    <strong>Example laboratory report</strong>
+    <div class="we-row"><span>PFOS</span><span>4.96 ng/L</span></div>
+    <div class="we-row"><span>PFOA</span><span>3.94 ng/L</span></div>
+    <div class="we-row"><span>PFHxS</span><span>2.38 ng/L</span></div>
+    <div class="we-row"><span>PFNA — Not detected</span><span>0 ng/L</span></div>
+    <div class="we-total"><span>Total to enter</span><span>11.28 ng/L</span></div>
+  </div>
+
   <div class="conc-input-row">
     <input id="c" type="number" step="0.5" min="0" value="12" class="conc-input"><span class="units-label">ng/L (ppt)</span>
   </div>
@@ -196,14 +209,7 @@
   </div>
   <p class="helper">Pre-filled with the current Jersey Water annual average (12 ng/L). Overwrite it with your own water's value.</p>
   <p class="helper">Current Jersey Water 2025 annual average (Sum of 4 PFAS): 12 ng/L. Source: Jersey Water Water Quality Report 2025.</p>
-  <p class="helper">Enter the combined concentration of these four PFAS:</p>
-  <ul class="helper-list">
-    <li>PFOS</li>
-    <li>PFOA</li>
-    <li>PFHxS</li>
-    <li>PFNA</li>
-  </ul>
-  <p class="helper">If your laboratory reports them separately, add the four values together. If your water supplier already reports the sum of these four PFAS, simply enter that number. Do not enter a 'Total PFAS' value or a different PFAS group unless it specifically states it is the sum of PFOS + PFOA + PFHxS + PFNA.</p>
+  <p class="helper">If your water supplier already reports the sum of these four PFAS, simply enter that number. Do not enter a 'Total PFAS' value or a different PFAS group unless it specifically states it is the sum of PFOS + PFOA + PFHxS + PFNA.</p>
   <p class="helper">For drinking water, 1 ng/L is exactly the same as 1 part per trillion (1 ppt), so no conversion is required.</p>
 
   <div class="examples">
