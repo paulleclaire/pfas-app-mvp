@@ -112,9 +112,6 @@
     .conc-input-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
     .conc-input { width: 150px; font-size: 1.5rem; font-weight: bold; text-align: center; padding: 0.6rem; border: 2px solid #1976D2; border-radius: 8px; }
     .conc-input:focus { outline: none; border-color: #0D47A1; box-shadow: 0 0 0 3px rgba(25,118,210,0.25); }
-    .conc-steppers { display: flex; gap: 0.75rem; margin: 0 0 1rem; }
-    .stepper-btn { font-size: 1.1rem; font-weight: bold; padding: 0.6rem 1.4rem; border: 2px solid #1976D2; background: #E6F1FB; color: #0D47A1; border-radius: 8px; cursor: pointer; }
-    .stepper-btn:active { background: #cfe3f7; }
     .examples { background: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 0.6rem 0.9rem; margin: 0.75rem 0; font-size: 0.9rem; }
     .examples ul { margin: 0.3rem 0 0 1.2rem; padding: 0; }
     .examples li { margin: 0.2rem 0; }
@@ -202,11 +199,7 @@
   </div>
 
   <div class="conc-input-row">
-    <input id="c" type="number" step="0.5" min="0" value="12" class="conc-input"><span class="units-label">ng/L (ppt)</span>
-  </div>
-  <div class="conc-steppers">
-    <button type="button" id="cMinus" class="stepper-btn">−0.5</button>
-    <button type="button" id="cPlus" class="stepper-btn">+0.5</button>
+    <input id="c" type="number" step="0.01" min="0" value="12" class="conc-input"><span class="units-label">ng/L (ppt)</span>
   </div>
   <p class="helper">Pre-filled with the current Jersey Water annual average (12 ng/L). Overwrite it with your own water's value.</p>
   <p class="helper">Current Jersey Water 2025 annual average (Sum of 4 PFAS): 12 ng/L. Source: Jersey Water Water Quality Report 2025.</p>
@@ -418,17 +411,6 @@ function calc() {
 }
 
 document.getElementById("c").addEventListener("input", calc);
-
-function stepConc(delta) {
-  const el = document.getElementById("c");
-  let v = parseFloat(el.value);
-  if (isNaN(v)) v = 0;
-  v = Math.max(0, Math.round((v + delta) * 10) / 10);
-  el.value = v;
-  calc();
-}
-document.getElementById("cMinus").addEventListener("click", () => stepConc(-0.5));
-document.getElementById("cPlus").addEventListener("click", () => stepConc(0.5));
 
 calc();
 </script>
