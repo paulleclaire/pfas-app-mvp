@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>PFAS Calculator</title>
+  <title>PFAS Report Interpreter</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
@@ -139,7 +139,8 @@
   </style>
 </head>
 <body>
-  <h1>PFAS Calculator</h1>
+  <h1>PFAS Report Interpreter</h1>
+  <p style="font-size:1rem; color:#555; margin:0.25rem 0 1rem;">Understand your PFAS laboratory report using current scientific guidance.</p>
 
   <div class="ticker">
     <div class="ticker-text" id="ticker-text">
@@ -161,11 +162,11 @@
   <div class="unit-toggle">
     <span class="unit-btn active" style="cursor:default;">✓ EFSA Sum of 4 (PFOS + PFOA + PFHxS + PFNA)</span>
   </div>
-  <p class="helper">This Version 1 calculator is based on the four PFAS used in the European Food Safety Authority (EFSA) Tolerable Weekly Intake.</p>
+  <p class="helper">This Version 1 Report Interpreter is based on the four PFAS used in the European Food Safety Authority (EFSA) Tolerable Weekly Intake.</p>
 
   <details class="calc-details">
     <summary>Why these four PFAS?</summary>
-    <p class="rsc-text">There are thousands of PFAS chemicals. This calculator does not attempt to measure every PFAS. Instead, it follows the approach adopted by the European Food Safety Authority (EFSA) and recommended by Jersey's Independent PFAS Scientific Advisory Panel.</p>
+    <p class="rsc-text">There are thousands of PFAS chemicals. This Report Interpreter does not attempt to measure every PFAS. Instead, it follows the approach adopted by the European Food Safety Authority (EFSA) and recommended by Jersey's Independent PFAS Scientific Advisory Panel.</p>
     <p class="rsc-text">The four PFAS are:</p>
     <ul class="helper-list">
       <li>PFOS — Perfluorooctane Sulfonic Acid</li>
@@ -185,10 +186,10 @@
     <p class="rsc-text">The Jersey Independent PFAS Scientific Advisory Panel recommended using the same simple Sum of 4 approach because it is scientifically robust, transparent and internationally recognised.</p>
     <p class="rsc-text"><strong>Why is PFNA included?</strong></p>
     <p class="rsc-text">PFNA is often found at lower concentrations than PFOS or PFOA, but scientific evidence shows it is biologically important. Some international regulatory systems consider PFNA relatively more potent when using Relative Potency Factor (RPF) methods.</p>
-    <p class="rsc-text">This Version 1 calculator does not use Relative Potency Factors. It follows the simple Sum of 4 approach recommended by Jersey's Independent PFAS Scientific Advisory Panel.</p>
+    <p class="rsc-text">This Version 1 Report Interpreter does not use Relative Potency Factors. It follows the simple Sum of 4 approach recommended by Jersey's Independent PFAS Scientific Advisory Panel.</p>
   </details>
 
-  <p class="conc-cta">Enter your Sum of 4 PFAS result</p>
+  <p class="conc-cta">Enter the Sum of 4 PFAS result from your laboratory report</p>
   <p class="conc-sub">If your laboratory report lists PFOS, PFOA, PFHxS and PFNA separately, simply add those four values together and enter the total below.</p>
 
   <div class="worked-example">
@@ -238,7 +239,7 @@
   <p class="hydration-line">Keep drinking enough water to stay healthy. If your water contains PFAS, the solution is to reduce PFAS exposure, not reduce hydration.</p>
 
   <details class="calc-details">
-    <summary>How this calculation works</summary>
+    <summary>How your report is interpreted</summary>
     <div id="calcDetails"></div>
     <p class="calc-note">All figures are the sum of PFOS, PFOA, PFNA and PFHxS. Recommended water intake is a hydration reference (30 mL per kg for adults, 35 mL per kg for children), not a limit.</p>
     <p class="calc-note">Version 1 estimates drinking-water contribution using typical intake assumptions for adults and children. It does not model pregnancy, fetal exposure, breastfeeding, organ development, long-term PFAS accumulation or individual body burden. Those are planned for a future PFAS Exposure Explorer Version 2.</p>
@@ -301,17 +302,17 @@
 
   <details class="calc-details">
     <summary>Scientific sources and references</summary>
-    <p class="src-intro">Every figure used in this calculator is traceable to a published scientific or official source.</p>
+    <p class="src-intro">Every figure used in this Report Interpreter is traceable to a published scientific or official source.</p>
     <p class="rsc-text"><strong>Scientific basis</strong></p>
     <p class="ref"><span class="ref-n">[1]</span>European Food Safety Authority (EFSA).<br><em>Risk to human health related to the presence of perfluoroalkyl substances in food.</em><br>EFSA Journal, 2020.<br>Tolerable Weekly Intake (TWI): 4.4 ng/kg body weight/week for the Sum of 4 PFAS (PFOA, PFOS, PFHxS and PFNA).</p>
     <p class="rsc-text"><strong>Jersey</strong></p>
     <p class="ref"><span class="ref-n">[2]</span>Jersey Water.<br><em>Water Quality Report 2025.</em><br>Average Sum of 4 PFAS in treated drinking water: 12 ng/L.<br>Average Sum of 48 PFAS: 31 ng/L.</p>
     <p class="ref"><span class="ref-n">[3]</span>Independent PFAS Scientific Advisory Panel for Jersey<br>Panel members:<br>Dr Steve Hajioff<br>Professor Ian Cousins<br>Dr Tony Fletcher<br><em>Draft Fourth Scientific Report – Drinking Water</em> (July 2026)<br>Final recommendations:<br>• Adopt an enforceable drinking-water standard of 4 ng/L for the simple Sum of 4 PFAS.<br>• Monitor the average Sum of 48 measurable PFAS.<br>• Use 10 ng/L for the Sum of 48 PFAS as a guidance value to trigger further investigation.<br>• Achieve 4 ng/L as soon as reasonably practicable, ideally within five years.<br>Government of Jersey<br>Independent PFAS Scientific Advisory Panel</p>
     <p class="rsc-text"><strong>Important</strong></p>
-    <p class="calc-note">This calculator estimates PFAS exposure from drinking water only. Total PFAS exposure also comes from food, consumer products and other environmental sources.</p>
+    <p class="calc-note">This Report Interpreter estimates PFAS exposure from drinking water only. Total PFAS exposure also comes from food, consumer products and other environmental sources.</p>
   </details>
 
-  <h2>About this calculator</h2>
+  <h2>About this Report Interpreter</h2>
   <div class="scrollbox">
 This app shows that when PFAS is present in your drinking water, the dose you get simply by drinking enough to stay alive, can exceed your immune-safe limit — even before eating any food.
 
@@ -330,7 +331,7 @@ They traced this back using PBPK modelling and set a strict weekly limit — the
 
 Everything in this app is built on that number.
 
-What this calculator does:
+What this Report Interpreter does:
 1. Uses typical daily water intake for your age group
 2. Calculates your weekly PFAS “budget” using EFSA’s formula
 3. Uses your water’s PFAS level
